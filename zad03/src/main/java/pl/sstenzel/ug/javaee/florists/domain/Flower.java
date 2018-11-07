@@ -1,6 +1,7 @@
 package pl.sstenzel.ug.javaee.florists.domain;
 
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Flower {
@@ -9,27 +10,28 @@ public class Flower {
     private String name;
     private Date pickDate;
     private Boolean dogToxic;
-    private int petalAmount;
-//    private long amount;
+    private double price;
+    private long amount;
 
     public Flower() {
     }
 
-    public Flower(String name, Date pickDate, Boolean dogToxic, int petalAmount) {
+    public Flower(String name, Date pickDate, Boolean dogToxic, double price, long amount) {
         super();
         this.name = name;
         this.pickDate = pickDate;
         this.dogToxic = dogToxic;
-        this.petalAmount = petalAmount;
+        this.price = price;
+        this.amount = amount;
     }
 
-    public Flower(long id, String name, Date pickDate, Boolean dogToxic, int petalAmount, long amount) {
+    public Flower(long id, String name, Date pickDate, Boolean dogToxic, double price, long amount) {
         this.id = id;
         this.name = name;
         this.pickDate = pickDate;
         this.dogToxic = dogToxic;
-        this.petalAmount = petalAmount;
-//        this.amount = amount;
+        this.price = price;
+        this.amount = amount;
     }
 
     public long getId() { return id; }
@@ -60,26 +62,35 @@ public class Flower {
         this.dogToxic = dogToxic;
     }
 
-    public int getPetalAmount() {
-        return petalAmount;
+    public double getPrice() {
+        return price;
     }
 
-    public void setPetalAmount(int petalAmount) {
-        this.petalAmount = petalAmount;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
-//    public long getAmount() { return amount; }
-//
-//    public void setAmount(long amount) { this.amount = amount; }
+    public long getAmount() { return amount; }
 
+    public void setAmount(long amount) { this.amount = amount; }
+
+    public boolean isOneMoreItem (long inBasket) {
+        if(getAmount() > inBasket){
+            return true;
+        }
+        return false;
+    }
+
+    public void substractAmount(long amount) {
+            this.amount -= amount;
+    }
 
     @Override
     public String toString() {
-        return "Flower{" +
-                "name='" + name + '\'' +
-                ", pickDate=" + pickDate +
-                ", dogToxic=" + dogToxic +
-                ", petalAmount=" + petalAmount +
-                '}';
+        return "Flower name: '" + name + '\'' +
+                ", \tpick up date: " + new SimpleDateFormat("dd/MM/yy").format(pickDate.getTime()) +
+                ", \ttoxic for dogs: " + dogToxic +
+                ", \tprice: " + price +
+                ", \tamount: " + amount ;
     }
 }
