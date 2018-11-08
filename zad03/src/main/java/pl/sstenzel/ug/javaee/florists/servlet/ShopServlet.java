@@ -71,10 +71,6 @@ public class ShopServlet extends HttpServlet {
                     "onclick='alert(\"Dodano " + flower.getName() + " !\")' " +
                     disabled +"'>");
             out.println("</form>");
-            System.out.println(!flower.isOneMoreItem(basket.getAmount(flower.getId())));
-            System.out.println(basket.getAmount(flower.getId()));
-            System.out.println(flower.getId());
-
         }
 
 

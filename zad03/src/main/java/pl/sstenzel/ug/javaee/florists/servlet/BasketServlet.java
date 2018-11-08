@@ -65,7 +65,7 @@ public class BasketServlet extends HttpServlet {
             }
         }
 
-        if (basket != null && basket.getItems().isEmpty()) {
+        if (basket != null && !basket.getItems().isEmpty()) {
             out.println("<form action='shop' method='post'>");
             out.println("<input type='text' name='method' value='DELETE' hidden>");
             out.println("<input type=\"submit\" value=\"-- Buy --\">");
