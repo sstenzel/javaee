@@ -62,7 +62,7 @@ public class NewsletterService {
         add(new Newsletter(getAvailableId(), imie, data, czestotliwosc, tematyka);
     }
 
-    public Collection<Newsletter> getAssortment() {
+    public Collection<Newsletter> getAll() {
         return newslettery.values();
     }
     public Newsletter get (long id){
