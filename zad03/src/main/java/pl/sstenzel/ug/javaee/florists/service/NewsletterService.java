@@ -27,6 +27,30 @@ public class NewsletterService {
 
     }
 
+    public List<String> getCzestotliwosci() {
+        return czestotliwosci;
+    }
+
+    public void setCzestotliwosci(List<String> czestotliwosci) {
+        this.czestotliwosci = czestotliwosci;
+    }
+
+    public List<String> getTematyka() {
+        return tematyka;
+    }
+
+    public void setTematyka(List<String> tematyka) {
+        this.tematyka = tematyka;
+    }
+
+    public Map<Long, Newsletter> getNewslettery() {
+        return newslettery;
+    }
+
+    public void setNewslettery(Map<Long, Newsletter> newslettery) {
+        this.newslettery = newslettery;
+    }
+
     public void add (String imie, String dataS, String czestotliwosc, String tematyka) {
         Date data = new Date();
 
