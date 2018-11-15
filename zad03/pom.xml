@@ -2,9 +2,12 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>pl.sstenzel.ug.javaee</groupId>
-	<packaging>war</packaging>
+	<packaging>pom</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>Java EE 6 - Servlet and JSP demo</name>
+    <!--<modules>-->
+        <!--<module>rodo</module>-->
+    <!--</modules>-->
+    <name>Java EE 6 - Servlet and JSP demo</name>
 	<url>http://maven.apache.org</url>
 	<repositories>
 		<!-- Several key Java EE APIs and RIs are missing from the Maven Central 
