@@ -5,13 +5,18 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Florists menu</title>
+        <title>Rodo</title>
     </head>
     <body>
+    <jsp:useBean id="consent" class="pl.sstenzel.ug.javaee.florists.domain.Consent" scope="session" />
 
-  <p> <a href='/florists/shop'><button> Shop --> </button></a></p>
-  <p>  <a href='/rodo/rodoindex.jsp'><button> Rodo --> </button></a></p>
-  <p> <a href='/florists/newsletter'><button> Newsletter --> </button></a></p>
+
+    <%
+        if (!consent.getRodo())
+            response.sendRedirect(request.getContextPath() + "/rodo.jsp");
+    %>
+
+        <h2>Witaj na stronie</h2>
 
     </body>
 </html>

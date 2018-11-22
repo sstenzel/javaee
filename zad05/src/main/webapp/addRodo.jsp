@@ -16,7 +16,7 @@
 <%
 
     if (consent.getRodo()) {
-        response.sendRedirect(request.getContextPath() + "/index.jsp");
+        response.sendRedirect(request.getContextPath() + "/rodoindex.jsp");
     }else
         response.sendRedirect(request.getContextPath() + "/rodo.jsp");
 
