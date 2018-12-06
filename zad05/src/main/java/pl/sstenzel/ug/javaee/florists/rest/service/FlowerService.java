@@ -4,49 +4,41 @@ import pl.sstenzel.ug.javaee.florists.rest.domain.Flower;
 
 
 import javax.ejb.Singleton;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Singleton
 public class FlowerService {
-    
-    private List<Flower> flowers = Collections.synchronizedList(new ArrayList<>());
+
+    private Map<Long,Flower> flowers = new HashMap<>();
+    private long id = 0;
 
     public void add(Flower flower) {
-        flowers.add(flower);
+        flower.setId(++id);
+        flowers.put(id, flower);
     }
 
     public Flower update(Flower flower) {
-        for (int i = 0; i < flowers.size(); i++) {
-            if(flowers.get(i).getId() == flower.getId()) {
-                flowers.set(i, flower);
-                return flower;
-            }
-        }
+        if(flowers.containsKey(flower.getId()))
+            return flowers.replace(flower.getId(), flower);
         return null;
     }
 
-    public void delete(long id){
-        for(Flower flower: flowers) {
-            if(flower.getId() == id) {
-                flowers.remove(flower);
-            }
+    public boolean delete(long id){
+        if(flowers.containsKey(id)) {
+            flowers.remove(id);
+            return true;
         }
+        return false;
     }
 
     public Flower get(long id) {
-        for(Flower flower: flowers) {
-            if(flower.getId() == id) {
-                return flower;
-            }
-        }
+        if(flowers.containsKey(id))
+            return flowers.get(id);
         return null;
     }
 
-    public List<Flower> getAll(){
-        return flowers;
+    public Collection<Flower> getAll(){
+        return flowers.values();
     }
 
     public void deleteAll(){

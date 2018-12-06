@@ -1,6 +1,7 @@
 package pl.sstenzel.ug.javaee.florists.rest.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -32,6 +33,15 @@ public class Flower {
         this.price = price;
         this.amount = amount;
     }
+
+    public Flower(String name, String pickDate, String dogToxic, String price, String amount) {
+        this.name = name;
+        this.setPickDate(pickDate);
+        this.dogToxic = Boolean.parseBoolean(dogToxic);
+        this.price = Integer.parseInt(price);
+        this.amount = Integer.parseInt(amount);
+    }
+
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }
 
@@ -44,9 +54,21 @@ public class Flower {
 //    public Date getPickDate() {
 //        return pickDate;
 //    }
+
     public void setPickDate(Date pickDate) {
         this.pickDate = pickDate;
     }
+
+    public void setPickDate(String pickDate) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        this.pickDate = new Date(format.format(pickDate));
+    }
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    public Date getPickDate() {
+        return pickDate;
+    }
+
     public Boolean getDogToxic() {
         return dogToxic;
     }
@@ -61,6 +83,7 @@ public class Flower {
     }
     public long getAmount() { return amount; }
     public void setAmount(long amount) { this.amount = amount; }
+
     public boolean isOneMoreItem (long inBasket) {
         if(getAmount() > inBasket){
             return true;
@@ -70,6 +93,7 @@ public class Flower {
     public void substractAmount(long amount) {
         this.amount -= amount;
     }
+
     @Override
     public String toString() {
         return "Flower name: '" + name + '\'' +
@@ -79,8 +103,5 @@ public class Flower {
                 ", \tamount: " + amount ;
     }
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    public Date getPickDate() {
-        return pickDate;
-    }
+
 }

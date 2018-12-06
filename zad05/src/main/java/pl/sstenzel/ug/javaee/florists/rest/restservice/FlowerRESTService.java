@@ -8,12 +8,24 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Collection;
 import java.util.List;
+
+/*
+ *  localhost:8080/florists/api/flower/test
+ */
 
     @Path("flower")
     @Stateless
     public class FlowerRESTService {
 
+        // 400 post
+        // 404 source not found
+        //200 ok
+        //202 accepted
+        // 204 no content
+
+        // we FLower Service dodajemy @Singleton - tylko jeden obiekt dla calej apki
         @Inject
         private FlowerService flowerService;
 
@@ -34,7 +46,7 @@ import java.util.List;
 
         @GET
         @Produces(MediaType.APPLICATION_JSON)
-        public List<Flower> get() {
+        public Collection<Flower> get() {
             return flowerService.getAll();
         }
 
