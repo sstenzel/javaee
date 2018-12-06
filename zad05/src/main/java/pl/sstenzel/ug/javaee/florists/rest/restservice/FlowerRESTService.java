@@ -21,8 +21,8 @@ import java.util.List;
 
         // 400 post
         // 404 source not found
-        //200 ok
-        //202 accepted
+        // 200 ok
+        // 202 accepted
         // 204 no content
 
         // we FLower Service dodajemy @Singleton - tylko jeden obiekt dla calej apki
@@ -40,28 +40,37 @@ import java.util.List;
         @GET
         @Path("/{flowerId}")
         @Produces(MediaType.APPLICATION_JSON)
-        public Flower get(@PathParam("flowerId") long id) {
-            return flowerService.get(id);
+        public Response get(@PathParam("flowerId") long id) {
+            Flower flower = flowerService.get(id);
+            if (flower != null)
+                return Response.status(200).entity(flower).build();
+            return Response.status(204).entity("Flower not found").build();
         }
 
         @GET
         @Produces(MediaType.APPLICATION_JSON)
-        public Collection<Flower> get() {
-            return flowerService.getAll();
+        public Response get() {
+            Collection<Flower> flowers = flowerService.getAll();
+            if (flowers != null)
+                return Response.status(202).entity(" Flower added").build();
+            return Response.status(204).entity("Flowers found").build();
         }
 
         @POST
         @Consumes(MediaType.APPLICATION_JSON)
         public Response add(Flower flower) {
             flowerService.add(flower);
-            return Response.status(201).entity("Flower").build();
+            return Response.status(400).entity(" Flower added").build();
         }
 
         @PUT
         @Consumes(MediaType.APPLICATION_JSON)
         @Produces(MediaType.APPLICATION_JSON)
-        public Flower update(Flower flower) {
-            return flowerService.update(flower);
+        public Response update(Flower flower) {
+            Flower flow = flowerService.update(flower);
+            if (flow != null)
+                return Response.status(400).entity(flow).build();
+            return Response.status(204).entity("Flowers found").build();
         }
 
 

@@ -26,12 +26,8 @@ public class Flower {
         this.amount = amount;
     }
     public Flower(long id, String name, Date pickDate, Boolean dogToxic, double price, long amount) {
+        this(name, pickDate, dogToxic, price, amount);
         this.id = id;
-        this.name = name;
-        this.pickDate = pickDate;
-        this.dogToxic = dogToxic;
-        this.price = price;
-        this.amount = amount;
     }
 
     public Flower(String name, String pickDate, String dogToxic, String price, String amount) {
@@ -40,6 +36,11 @@ public class Flower {
         this.dogToxic = Boolean.parseBoolean(dogToxic);
         this.price = Integer.parseInt(price);
         this.amount = Integer.parseInt(amount);
+    }
+
+    public Flower(String id, String name, String pickDate, String dogToxic, String price, String amount) {
+        this(name, pickDate, dogToxic, price, amount);
+        this.setId(Long.parseLong(id));
     }
 
     public long getId() { return id; }
