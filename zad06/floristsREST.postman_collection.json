@@ -53,7 +53,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"name\": \"gozdzik\", \n\t\"pickDate\": \"2001-12-12\", \n\t\"dogToxic\": \"false\",\n\t\"price\": \"12\",\n\t\"amount\": \"4\"\n}"
+					"raw": "{\n\t\"name\": \"gozdzik\"\n}"
 				},
 				"url": {
 					"raw": "localhost:8080/florists/api/flower",
@@ -115,6 +115,86 @@
 						"api",
 						"flower",
 						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": \"1\",\n\t\"name\": \"bazylia\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/florists/api/flower",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"florists",
+						"api",
+						"flower"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/florists/api/flower/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"florists",
+						"api",
+						"flower",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "clear",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/florists/api/flower",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"florists",
+						"api",
+						"flower"
 					]
 				}
 			},

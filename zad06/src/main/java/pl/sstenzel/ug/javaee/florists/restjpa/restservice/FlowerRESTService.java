@@ -20,13 +20,15 @@ import java.util.Collection;
     @Stateless
     public class FlowerRESTService {
 
-        // 400 post
+        // 400 bad request
         // 404 source not found
+
         // 200 ok
+        // 201 created
         // 202 accepted
         // 204 no content
 
-        //we FLower Service dodajemy @Stateless
+        //we Flower Service dodajemy @Stateless
 
         @Inject
         FlowerService flowerService;
@@ -54,7 +56,7 @@ import java.util.Collection;
         public Response get() {
             Collection<Flower> flowers = flowerService.getAll();
             if (flowers.size() > 0)
-                return Response.status(202).entity(flowers).build();
+                return Response.status(200).entity(flowers).build();
             return Response.status(204).entity("Flowers not found").build();
         }
 
@@ -62,9 +64,10 @@ import java.util.Collection;
         @Consumes(MediaType.APPLICATION_JSON)
         public Response add(Flower flower) {
             // tutaj mozna zmienic wartosci flowera
+
             flowerService.add(flower);     // <-- zob FlowerSerwice
             // tutaj juz nie, bo kwiat zostal utrwalomy
-            return Response.status(201).entity(flower).build();
+            return Response.status(201).entity("add flower").build();
         }
 
         @PUT
@@ -73,8 +76,8 @@ import java.util.Collection;
         public Response update(Flower flower) {
             Flower flow = flowerService.update(flower);
             if (flow != null)
-                return Response.status(400).entity(flow).build();
-            return Response.status(204).entity("Flowers found").build();
+                return Response.status(201).entity(flow).build();
+            return Response.status(204).entity("Flowers not found").build();
         }
 
 
@@ -86,7 +89,7 @@ import java.util.Collection;
 
         @DELETE
         @Path("/{flowerId}")
-        public Response delete(@PathParam("flowerId") long id) {
+        public Response deleteFlower(@PathParam("flowerId") long id) {
             flowerService.remove(id);
             return Response.status(200).build();
         }
