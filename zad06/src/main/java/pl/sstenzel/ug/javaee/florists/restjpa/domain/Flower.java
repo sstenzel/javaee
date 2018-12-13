@@ -3,8 +3,10 @@ package pl.sstenzel.ug.javaee.florists.restjpa.domain;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @XmlRootElement
 @Entity
@@ -15,11 +17,11 @@ import java.util.Date;
 public class Flower {
     private long id;
     private String name;
-//    private Date pickDate;
+//    private Date dateOfPlant;
 //    private Boolean dogToxic;
-//    private double price;
-//    private long amount;
-//
+
+    private List<Person> watermen = new ArrayList<>();
+
     public Flower() {
     }
 
@@ -124,5 +126,20 @@ public class Flower {
 //                ", \tamount: " + amount ;
 //    }
 
+
+            // EAGER - pobiera wszystko, potem mozemy sobie wybierac dowolne wartosci
+            // LazyInicjalization	- ladowane wtedy gdy sa potrzebne
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    public List<Person> getWatermen() {
+        return watermen;
+    }
+
+    public void setWatermen(List<Person> watermen) {
+        this.watermen = watermen;
+    }
+
+    public void addWatermen (List<Person> watermen){
+        // TODO ...
+    }
 
 }

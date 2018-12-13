@@ -27,13 +27,9 @@ import java.util.Collection;
         // 204 no content
 
         //we FLower Service dodajemy @Stateless
-        //
-        //@Inject
-        //private FlowerService flowerService;
-        //albo
 
-        @PersistenceContext
-        EntityManager flowerService;
+        @Inject
+        FlowerService flowerService;
 
         @GET
         @Path("/test")
@@ -47,7 +43,7 @@ import java.util.Collection;
         @Path("/{flowerId}")
         @Produces(MediaType.APPLICATION_JSON)
         public Response get(@PathParam("flowerId") long id) {
-            Flower flower = flowerService.find(Flower.class, id);
+            Flower flower = flowerService.get(id);
             if (flower != null)
                 return Response.status(200).entity(flower).build();
             return Response.status(204).entity("Flower not found").build();
@@ -56,41 +52,46 @@ import java.util.Collection;
         @GET
         @Produces(MediaType.APPLICATION_JSON)
         public Response get() {
-            Collection<Flower> flowers = flowerService.createNamedQuery("flower.getAll").getResultList();
-            if (flowers != null)
-                return Response.status(202).entity(" Flower added").build();
-            return Response.status(204).entity("Flowers found").build();
+            Collection<Flower> flowers = flowerService.getAll();
+            if (flowers.size() > 0)
+                return Response.status(202).entity(flowers).build();
+            return Response.status(204).entity("Flowers not found").build();
         }
 
         @POST
         @Consumes(MediaType.APPLICATION_JSON)
         public Response add(Flower flower) {
-            flowerService.persist(flower);
-            return Response.status(400).entity(" Flower added").build();
+            // tutaj mozna zmienic wartosci flowera
+            flowerService.add(flower);     // <-- zob FlowerSerwice
+            // tutaj juz nie, bo kwiat zostal utrwalomy
+            return Response.status(201).entity(flower).build();
         }
 
-//        @PUT
-//        @Consumes(MediaType.APPLICATION_JSON)
-//        @Produces(MediaType.APPLICATION_JSON)
-//        public Response update(Flower flower) {
-//            Flower flow = flowerService.update(flower);
-//            if (flow != null)
-//                return Response.status(400).entity(flow).build();
-//            return Response.status(204).entity("Flowers found").build();
-//        }
-//
-//
-//        @DELETE
-//        public Response clear() {
-//            flowerService.deleteAll();
-//            return Response.status(200).build();
-//        }
-//
-//        @DELETE
-//        @Path("/{flowerId}")
-//        public Response delete(@PathParam("flowerId") long id) {
-//            flowerService.delete(id);
-//            return Response.status(200).build();
-//        }
+        @PUT
+        @Consumes(MediaType.APPLICATION_JSON)
+        @Produces(MediaType.APPLICATION_JSON)
+        public Response update(Flower flower) {
+            Flower flow = flowerService.update(flower);
+            if (flow != null)
+                return Response.status(400).entity(flow).build();
+            return Response.status(204).entity("Flowers found").build();
+        }
+
+
+        @DELETE
+        public Response clear() {
+            flowerService.clear();
+            return Response.status(200).build();
+        }
+
+        @DELETE
+        @Path("/{flowerId}")
+        public Response delete(@PathParam("flowerId") long id) {
+            flowerService.remove(id);
+            return Response.status(200).build();
+        }
+
+
+
 
     }

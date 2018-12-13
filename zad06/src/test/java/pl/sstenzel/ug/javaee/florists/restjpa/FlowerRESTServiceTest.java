@@ -15,7 +15,7 @@ import org.junit.Test;
 import com.jayway.restassured.RestAssured;
 import pl.sstenzel.ug.javaee.florists.restjpa.domain.Flower;
 
-public class FlowerServiceIT {
+public class FlowerRESTServiceTest {
 //
 //	private static final String FLOWER_NAME = "Gozdzik";
 ////	private static final String FLOWER_ = "Przyslowiowy-Kowalski";
