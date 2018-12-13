@@ -32,8 +32,8 @@ import java.util.Collection;
         //private FlowerService flowerService;
         //albo
 
-//        @PersistenceContext
-//        EntityManager flowerService;
+        @PersistenceContext
+        EntityManager flowerService;
 
         @GET
         @Path("/test")
@@ -43,32 +43,32 @@ import java.util.Collection;
         }
 
 
-//        @GET
-//        @Path("/{flowerId}")
-//        @Produces(MediaType.APPLICATION_JSON)
-//        public Response get(@PathParam("flowerId") long id) {
-//            Flower flower = flowerService.get(id);
-//            if (flower != null)
-//                return Response.status(200).entity(flower).build();
-//            return Response.status(204).entity("Flower not found").build();
-//        }
-//
-//        @GET
-//        @Produces(MediaType.APPLICATION_JSON)
-//        public Response get() {
-//            Collection<Flower> flowers = flowerService.getAll();
-//            if (flowers != null)
-//                return Response.status(202).entity(" Flower added").build();
-//            return Response.status(204).entity("Flowers found").build();
-//        }
-//
-//        @POST
-//        @Consumes(MediaType.APPLICATION_JSON)
-//        public Response add(Flower flower) {
-//            flowerService.add(flower);
-//            return Response.status(400).entity(" Flower added").build();
-//        }
-//
+        @GET
+        @Path("/{flowerId}")
+        @Produces(MediaType.APPLICATION_JSON)
+        public Response get(@PathParam("flowerId") long id) {
+            Flower flower = flowerService.find(Flower.class, id);
+            if (flower != null)
+                return Response.status(200).entity(flower).build();
+            return Response.status(204).entity("Flower not found").build();
+        }
+
+        @GET
+        @Produces(MediaType.APPLICATION_JSON)
+        public Response get() {
+            Collection<Flower> flowers = flowerService.createNamedQuery("flower.getAll").getResultList();
+            if (flowers != null)
+                return Response.status(202).entity(" Flower added").build();
+            return Response.status(204).entity("Flowers found").build();
+        }
+
+        @POST
+        @Consumes(MediaType.APPLICATION_JSON)
+        public Response add(Flower flower) {
+            flowerService.persist(flower);
+            return Response.status(400).entity(" Flower added").build();
+        }
+
 //        @PUT
 //        @Consumes(MediaType.APPLICATION_JSON)
 //        @Produces(MediaType.APPLICATION_JSON)

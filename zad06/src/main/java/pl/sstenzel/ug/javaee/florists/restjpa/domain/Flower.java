@@ -1,16 +1,17 @@
 package pl.sstenzel.ug.javaee.florists.restjpa.domain;
 //import com.fasterxml.jackson.annotation.JsonFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @XmlRootElement
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "flower.getAll", query = "Select f from Flower f"),
+        @NamedQuery(name="flower.deleteAll", query="Delete from Flower")
+})
 public class Flower {
     private long id;
     private String name;
@@ -19,8 +20,20 @@ public class Flower {
 //    private double price;
 //    private long amount;
 //
-//    public Flower() {
-//    }
+    public Flower() {
+    }
+
+        public Flower(String name) {
+        super();
+        this.name = name;
+
+    }
+
+        public Flower(long id, String name) {
+        super();
+        this.name = name;
+        this.id = id;
+    }
 //
 //    public Flower(String name, Date pickDate, Boolean dogToxic, double price, long amount) {
 //        super();

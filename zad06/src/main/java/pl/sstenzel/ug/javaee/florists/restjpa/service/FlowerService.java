@@ -14,12 +14,17 @@ public class FlowerService {
     @PersistenceContext
     EntityManager flowerService;
 
-    public Flower getPerson(Long id){
+    public Flower get(Long id){
         return flowerService.find(Flower.class, id);
     }
 
-    public void addPerson(Flower flower){
+    public void add(Flower flower){
         flowerService.persist(flower);
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Flower> getAllPersons(){
+        return flowerService.createNamedQuery("flower.getAll").getResultList();
     }
 
 }
