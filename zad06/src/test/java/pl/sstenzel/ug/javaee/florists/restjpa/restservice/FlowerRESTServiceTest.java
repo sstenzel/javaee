@@ -26,44 +26,44 @@ public class FlowerRESTServiceTest {
         RestAssured.basePath = "/florists/api";
     }
 
-    @Test
-    public void test1() {
-    }
+//    @Test
+//    public void test1() {
+//    }
+//
+//    @Test
+//    public void get() {
+//        given().
+//                contentType(MediaType.APPLICATION_JSON).
+//                when().
+//                get("/flower/").then().assertThat().statusCode(200);
+//    }
+//
+//    @Test
+//    public void get1() {
+//    }
 
-    @Test
-    public void get() {
-        given().
-                contentType(MediaType.APPLICATION_JSON).
-                when().
-                get("/flower/").then().assertThat().statusCode(200);
-    }
+//    @Test
+//    public void add() {
+//        delete("/flower/").then().assertThat().statusCode(200);
+//
+//        Flower flower = new Flower(FLOWER_NAME);
+//
+//        given().
+//                contentType(MediaType.APPLICATION_JSON).
+//                body(flower).
+//                when().
+//                post("/flower/").then().assertThat().statusCode(201);
+//    }
 
-    @Test
-    public void get1() {
-    }
-
-    @Test
-    public void add() {
-        delete("/flower/").then().assertThat().statusCode(200);
-
-        Flower flower = new Flower(FLOWER_NAME);
-
-        given().
-                contentType(MediaType.APPLICATION_JSON).
-                body(flower).
-                when().
-                post("/flower/").then().assertThat().statusCode(201);
-    }
-
-    @Test
-    public void update() {
-    }
-
-    @Test
-    public void clear() {
-    }
-
-    @Test
-    public void deleteFlower() {
-    }
+//    @Test
+//    public void update() {
+//    }
+//
+//    @Test
+//    public void clear() {
+//    }
+//
+//    @Test
+//    public void deleteFlower() {
+//    }
 }

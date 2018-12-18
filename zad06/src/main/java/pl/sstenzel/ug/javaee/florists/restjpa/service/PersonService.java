@@ -13,11 +13,20 @@ public class PersonService {
     @PersistenceContext
     EntityManager em;
 
-    public void add(Person person){
+    public void addPerson(Person person){
         em.persist(person);
     }
 
-//    public List<Person> getAll(){
-//    }
+    public Person getPerson(Long id) {
+        return em.find(Person.class, id);
+    }
+
+    public void updatePerson(Person person){
+        em.merge(person);
+    }
+
+    public List<Person> getAllPeople(){
+        return em.createNamedQuery("person.getAll").getResultList();
+    }
 
 }

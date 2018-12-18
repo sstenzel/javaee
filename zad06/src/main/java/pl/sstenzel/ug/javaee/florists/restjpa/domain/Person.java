@@ -1,5 +1,8 @@
 package pl.sstenzel.ug.javaee.florists.restjpa.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
@@ -7,10 +10,15 @@ import java.util.List;
 
 @Entity
 @XmlRootElement
+@NamedQueries({
+        @NamedQuery(name = "person.getAll", query = "Select p from Person p")
+})
 public class Person {
     private long id;
     private String name;
     private String surname;
+
+    @JsonBackReference
     private List<Flower> flowers = new ArrayList<>();
 
     public Person() {}
@@ -53,4 +61,5 @@ public class Person {
     public void setFlowers(List<Flower> flowers) {
         this.flowers = flowers;
     }
+    public void addFlower(Flower flower) {this.flowers.add(flower);}
 }

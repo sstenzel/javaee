@@ -1,6 +1,9 @@
 package pl.sstenzel.ug.javaee.florists.restjpa.domain;
 //import com.fasterxml.jackson.annotation.JsonFormat;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.sql.Date;
@@ -20,6 +23,7 @@ public class Flower {
 //    private Date dateOfPlant;
 //    private Boolean dogToxic;
 
+    @JsonManagedReference
     private List<Person> watermen = new ArrayList<>();
 
     public Flower() {
@@ -138,8 +142,12 @@ public class Flower {
         this.watermen = watermen;
     }
 
-    public void addWatermen (List<Person> watermen){
-        // TODO ...
+//    public void addWatermen (List<Person> watermen){
+//        // TODO ...
+//    }
+
+    public void addWaterman (Person waterman){
+        this.watermen.add(waterman);
     }
 
 }

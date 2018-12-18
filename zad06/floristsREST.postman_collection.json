@@ -105,7 +105,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:8080/florists/api/flower/0",
+					"raw": "localhost:8080/florists/api/flower/1",
 					"host": [
 						"localhost"
 					],
@@ -114,7 +114,7 @@
 						"florists",
 						"api",
 						"flower",
-						"0"
+						"1"
 					]
 				}
 			},
@@ -195,6 +195,153 @@
 						"florists",
 						"api",
 						"flower"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all people",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/florists/api/person",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"florists",
+						"api",
+						"person"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get person",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/florists/api/person/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"florists",
+						"api",
+						"person",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add person",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Mietek\",\n    \"surname\": \"Kropkowski\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/florists/api/person",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"florists",
+						"api",
+						"person"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add waterman",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Anka\",\n    \"surname\": \"Kropkowska\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/florists/api/flower/1/addwaterman",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"florists",
+						"api",
+						"flower",
+						"1",
+						"addwaterman"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add waterman by id",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/florists/api/flower/1/addwaterman/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"florists",
+						"api",
+						"flower",
+						"1",
+						"addwaterman",
+						"2"
 					]
 				}
 			},

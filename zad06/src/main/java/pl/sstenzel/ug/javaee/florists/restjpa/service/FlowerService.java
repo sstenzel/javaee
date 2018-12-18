@@ -16,11 +16,12 @@ public class FlowerService {
             // nazwa widoczna w persistence.xml
     EntityManager entityManager; // z javax, manager do zarzadzania baza
 
-    public Flower get(Long id){
+    public Flower getFlower(Long id){
+
         return entityManager.find(Flower.class, id);
     }
 
-    public void add(Flower flower){
+    public void addFlower (Flower flower){
         entityManager.persist(flower);
 
         // tuatj mozna zmienic po persist wartosci flowera
@@ -34,27 +35,23 @@ public class FlowerService {
     }
 
     @SuppressWarnings("unchecked")
-    public List<Flower> getAll(){
+    public List<Flower> getAllFlowers(){
+
         return entityManager.createNamedQuery("flower.getAll").getResultList();
     }
 
-    public Flower update(Flower flower) {
+    public Flower updateFlower(Flower flower) {
         return entityManager.merge(flower);
     }
 
 
-    public void clear() {
+    public void deleteAllFlowers() {
         entityManager.createNamedQuery("flower.deleteAll").executeUpdate();
     }
 
-    public void remove(long id){
-        Flower flower = get(id);
+    public void deleteFlower(long id){
+        Flower flower = getFlower(id);
         entityManager.remove(flower);
     }
-
-
-
-    // flower.getWaterman().getFirstName();
-
 
 }
