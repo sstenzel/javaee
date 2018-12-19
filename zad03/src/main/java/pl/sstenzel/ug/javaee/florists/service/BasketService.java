@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class BasketService {
 
-    HashMap<Long, Long> basket = new HashMap<>();
+    HashMap<Long, Long> basket = new HashMap<Long, Long>();
 
     public BasketService () {
     }

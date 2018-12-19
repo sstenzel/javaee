@@ -15,7 +15,7 @@ public class StorageService {
     private long availableId;
 
     public StorageService (){
-        this.assortment = new HashMap<>();
+        this.assortment = new HashMap<Long, Flower>();
         this.availableId = 1;
         fill();
     }

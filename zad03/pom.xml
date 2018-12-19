@@ -1,17 +1,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>pl.sstenzel.ug.javaee</groupId>
-	<packaging>pom</packaging>
+	<groupId>com.example</groupId>
+	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-    <!--<modules>-->
-        <!--<module>rodo</module>-->
-	<!---->
-    <!--</modules>-->
-    <name>Java EE 6 - Servlet and JSP demo</name>
+	<name>Java EE 6 - Sklep</name>
 	<url>http://maven.apache.org</url>
 	<repositories>
-		<!-- Several key Java EE APIs and RIs are missing from the Maven Central 
+		<!-- Several key Java EE APIs and RIs are missing from the Maven Central
 			Repository -->
 		<!-- The goal is to eventually eliminate the reliance on the JBoss repository -->
 		<repository>
@@ -52,15 +48,16 @@
 
 	</dependencies>
 	<build>
-		<finalName>florists</finalName>
+		<finalName>zad03</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.0.2</version>
 				<configuration>
-					<source>7</source>
-					<target>7</target>
+					<source>1.6</source>
+					<target>1.6</target>
+					<encoding>UTF-8</encoding>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -87,6 +84,5 @@
 		</plugins>
 	</build>
 
-	<artifactId>florists</artifactId>
+	<artifactId>zad03</artifactId>
 </project>
-
