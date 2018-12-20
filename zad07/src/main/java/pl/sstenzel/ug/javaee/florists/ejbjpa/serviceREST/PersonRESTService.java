@@ -1,4 +1,4 @@
-package pl.sstenzel.ug.javaee.florists.ejbjpa.service;
+package pl.sstenzel.ug.javaee.florists.ejbjpa.serviceREST;
 
 import pl.sstenzel.ug.javaee.florists.ejbjpa.domain.Person;
 import pl.sstenzel.ug.javaee.florists.ejbjpa.service.PersonService;

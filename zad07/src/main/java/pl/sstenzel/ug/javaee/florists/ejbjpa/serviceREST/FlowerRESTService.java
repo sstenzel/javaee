@@ -1,7 +1,11 @@
-package pl.sstenzel.ug.javaee.florists.ejbjpa.service;
+package pl.sstenzel.ug.javaee.florists.ejbjpa.serviceREST;
 
+import pl.sstenzel.ug.javaee.florists.ejbjpa.domain.Card;
+import pl.sstenzel.ug.javaee.florists.ejbjpa.domain.Fertilization;
 import pl.sstenzel.ug.javaee.florists.ejbjpa.domain.Flower;
 import pl.sstenzel.ug.javaee.florists.ejbjpa.domain.Person;
+import pl.sstenzel.ug.javaee.florists.ejbjpa.service.CardService;
+import pl.sstenzel.ug.javaee.florists.ejbjpa.service.FertilizationService;
 import pl.sstenzel.ug.javaee.florists.ejbjpa.service.FlowerService;
 import pl.sstenzel.ug.javaee.florists.ejbjpa.service.PersonService;
 
@@ -28,12 +32,14 @@ public class FlowerRESTService {
     // 202 accepted
     // 204 no content
 
-    //we Flower Service dodajemy @Stateless
-
     @Inject
     FlowerService flowerService;
     @Inject
     PersonService ps;
+    @Inject
+    CardService cs;
+//    @Inject
+//    FertilizationService fs;
 
     @GET
     @Path("/test")
@@ -66,7 +72,6 @@ public class FlowerRESTService {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addFlower(Flower flower) {
         // tutaj mozna zmienic wartosci flowera
-
         flowerService.addFlower(flower);     // <-- zob FlowerSerwice
         // tutaj juz nie, bo kwiat zostal utrwalomy
         return Response.status(201).entity("add flower").build();
@@ -136,5 +141,42 @@ public class FlowerRESTService {
         return Response.status(200).entity("added waterman to flower").build();
     }
 
+
+    @PUT
+    @Path("/{flowerId}/addcard")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addCard(@PathParam("flowerId") long flowerId, Card card){
+
+        Flower flower = flowerService.getFlower(flowerId);
+        if (flower == null )
+            return Response.status(204).entity("Flower not found").build();
+
+        cs.addCard(card);
+        flower.setCareDescription(card);
+        return Response.status(200).entity("added care description to flower").build();
+    }
+
+
+//    @GET
+//    @Path("/{flowerId}/addcard/{cardId}")
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response getCard(@PathParam("flowerId") long flowerId, @PathParam("cardId") long cardId){
+//    }
+
+//    @PUT
+//    @Path("/{flowerId}/addfert")
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response addFert(@PathParam("flowerId") long flowerId, Fertilization fertilization){
+//
+//        Flower flower = flowerService.getFlower(flowerId);
+//        if (flower == null )
+//            return Response.status(204).entity("Flower not found").build();
+//
+//        fs.addFertilization(fertilization);
+//        flower.addFertilization(fertilization);
+//        return Response.status(200).entity("added fertilization to flower").build();
+//    }
 
 }

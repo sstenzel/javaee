@@ -1,8 +1,6 @@
 package pl.sstenzel.ug.javaee.florists.ejbjpa.domain;
-//import com.fasterxml.jackson.annotation.JsonFormat;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
@@ -23,21 +21,66 @@ public class Flower {
     @JsonManagedReference
     private List<Person> watermen = new ArrayList<>();
 
+    @JsonManagedReference
+    private Card careDescription;
+//
+//    @JsonManagedReference
+//    private List<Fertilization> fertilizations = new ArrayList<>();
+
     public Flower() {
     }
 
-        public Flower(String name) {
+    public Flower(String name) {
         super();
         this.name = name;
-
     }
 
-        public Flower(long id, String name) {
-        super();
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public long getId() { return id; }
+    public void setId(long id) { this.id = id; }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
         this.name = name;
-        this.id = id;
     }
-//
+
+    @ManyToMany(mappedBy="parent", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @Fetch(value = FetchMode.SUBSELECT)
+    public List<Person> getWatermen() {
+        return watermen;
+    }
+    public void setWatermen(List<Person> watermen) {
+        this.watermen = watermen;
+    }
+    public void addWaterman (Person waterman){
+        this.watermen.add(waterman);
+    }
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    public Card getCareDescription() {
+        return careDescription;
+    }
+    public void setCareDescription(Card careDescription) {
+        this.careDescription = careDescription;
+    }
+
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    public List<Fertilization> getFertilizations() {
+//        return fertilizations;
+//    }
+//    public void setFertilizations(List<Fertilization> fertilizations) {
+//        this.fertilizations = fertilizations;
+//    }
+//    public  void addFertilization(Fertilization fert){
+//        this.fertilizations.add(fert);
+//    }
+
+
+    //
 //    public Flower(String name, Date pickDate, Boolean dogToxic, double price, long amount) {
 //        super();
 //        this.name = name;
@@ -64,17 +107,7 @@ public class Flower {
 //        this.setId(Long.parseLong(id));
 //    }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long getId() { return id; }
-    public void setId(long id) { this.id = id; }
 
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
 //    public Date getPickDate() {
 //        return pickDate;
 //    }
@@ -118,33 +151,7 @@ public class Flower {
 //        this.amount -= amount;
 //    }
 
-//    @Override
-//    public String toString() {
-//        return "Flower name: '" + name + '\'' +
-//                ", \tpick up date: " + new SimpleDateFormat("dd/MM/yy").format(pickDate.getTime()) +
-//                ", \ttoxic for dogs: " + dogToxic +
-//                ", \tprice: " + price +
-//                ", \tamount: " + amount ;
-//    }
 
 
-            // EAGER - pobiera wszystko, potem mozemy sobie wybierac dowolne wartosci
-            // LazyInicjalization	- ladowane wtedy gdy sa potrzebne
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    public List<Person> getWatermen() {
-        return watermen;
-    }
-
-    public void setWatermen(List<Person> watermen) {
-        this.watermen = watermen;
-    }
-
-//    public void addWatermen (List<Person> watermen){
-//        // TODO ...
-//    }
-
-    public void addWaterman (Person waterman){
-        this.watermen.add(waterman);
-    }
 
 }
