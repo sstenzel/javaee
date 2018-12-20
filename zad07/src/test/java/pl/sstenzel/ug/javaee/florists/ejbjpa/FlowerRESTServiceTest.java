@@ -1,15 +1,11 @@
-package pl.sstenzel.ug.javaee.florists.restjpa.restservice;
+package pl.sstenzel.ug.javaee.florists.ejbjpa;
 
 import com.jayway.restassured.RestAssured;
 import org.junit.Before;
-import org.junit.Test;
-import pl.sstenzel.ug.javaee.florists.restjpa.domain.Flower;
-
-import javax.ws.rs.core.MediaType;
 
 import static com.jayway.restassured.RestAssured.given;
 //import static org.junit.Assert.*;
-import static com.jayway.restassured.RestAssured.*;     // do delete("/flower/")
+
 //import static org.hamcrest.MatcherAssert.assertThat;
 //import static org.hamcrest.Matchers.containsString;
 //import static org.hamcrest.Matchers.equalTo;

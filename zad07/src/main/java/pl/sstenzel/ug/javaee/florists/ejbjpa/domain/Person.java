@@ -1,7 +1,6 @@
-package pl.sstenzel.ug.javaee.florists.restjpa.domain;
+package pl.sstenzel.ug.javaee.florists.ejbjpa.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;

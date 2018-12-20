@@ -1,8 +1,7 @@
-package pl.sstenzel.ug.javaee.florists.restjpa.restservice;
+package pl.sstenzel.ug.javaee.florists.ejbjpa.service;
 
-import pl.sstenzel.ug.javaee.florists.restjpa.domain.Person;
-import pl.sstenzel.ug.javaee.florists.restjpa.service.FlowerService;
-import pl.sstenzel.ug.javaee.florists.restjpa.service.PersonService;
+import pl.sstenzel.ug.javaee.florists.ejbjpa.domain.Person;
+import pl.sstenzel.ug.javaee.florists.ejbjpa.service.PersonService;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;

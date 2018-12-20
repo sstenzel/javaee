@@ -1,6 +1,6 @@
-package pl.sstenzel.ug.javaee.florists.restjpa.service;
+package pl.sstenzel.ug.javaee.florists.ejbjpa.service;
 
-import pl.sstenzel.ug.javaee.florists.restjpa.domain.Person;
+import pl.sstenzel.ug.javaee.florists.ejbjpa.domain.Person;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

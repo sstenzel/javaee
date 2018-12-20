@@ -1,13 +1,10 @@
-package pl.sstenzel.ug.javaee.florists.restjpa.domain;
+package pl.sstenzel.ug.javaee.florists.ejbjpa.domain;
 //import com.fasterxml.jackson.annotation.JsonFormat;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 

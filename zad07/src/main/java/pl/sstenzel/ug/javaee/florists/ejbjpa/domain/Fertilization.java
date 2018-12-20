@@ -1,4 +1,4 @@
-package pl.sstenzel.ug.javaee.florists.restjpa.domain;
+package pl.sstenzel.ug.javaee.florists.ejbjpa.domain;
 
 import java.sql.Date;
 
