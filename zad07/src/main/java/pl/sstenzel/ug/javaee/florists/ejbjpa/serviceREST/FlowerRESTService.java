@@ -38,8 +38,8 @@ public class FlowerRESTService {
     PersonService ps;
     @Inject
     CardService cs;
-//    @Inject
-//    FertilizationService fs;
+    @Inject
+    FertilizationService fs;
 
     @GET
     @Path("/test")
@@ -151,9 +151,10 @@ public class FlowerRESTService {
         Flower flower = flowerService.getFlower(flowerId);
         if (flower == null )
             return Response.status(204).entity("Flower not found").build();
-
+        flower.addCareDescription(card);
+        card.addFlower(flower);
         cs.addCard(card);
-        flower.setCareDescription(card);
+
         return Response.status(200).entity("added care description to flower").build();
     }
 
@@ -164,19 +165,21 @@ public class FlowerRESTService {
 //    public Response getCard(@PathParam("flowerId") long flowerId, @PathParam("cardId") long cardId){
 //    }
 
-//    @PUT
-//    @Path("/{flowerId}/addfert")
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response addFert(@PathParam("flowerId") long flowerId, Fertilization fertilization){
-//
-//        Flower flower = flowerService.getFlower(flowerId);
-//        if (flower == null )
-//            return Response.status(204).entity("Flower not found").build();
-//
-//        fs.addFertilization(fertilization);
-//        flower.addFertilization(fertilization);
-//        return Response.status(200).entity("added fertilization to flower").build();
-//    }
+    @PUT
+    @Path("/{flowerId}/addfert")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addFert(@PathParam("flowerId") long flowerId, Fertilization fertilization){
+
+        Flower flower = flowerService.getFlower(flowerId);
+        if (flower == null )
+            return Response.status(204).entity("Flower not found").build();
+
+        flower.addFertilization(fertilization);
+        fertilization.addFlower(flower);
+        fs.addFertilization(fertilization);
+
+        return Response.status(200).entity("added fertilization to flower").build();
+    }
 
 }

@@ -17,7 +17,7 @@ public class Person {
     private String name;
     private String surname;
 
-    @JsonBackReference
+    @ManyToMany(mappedBy="flowers", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Flower> flowers = new ArrayList<>();
 
     public Person() {}
@@ -53,12 +53,5 @@ public class Person {
         this.surname = surname;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    public List<Flower> getFlowers() {
-        return flowers;
-    }
-    public void setFlowers(List<Flower> flowers) {
-        this.flowers = flowers;
-    }
     public void addFlower(Flower flower) {this.flowers.add(flower);}
 }

@@ -13,7 +13,7 @@ public class Fertilization {
 //    private Date date;
     private String fertilizer;
 
-    @JsonBackReference
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Flower flower;
 
     public Fertilization(String fertilizer) {
@@ -45,11 +45,8 @@ public class Fertilization {
         this.fertilizer = fertilizer;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    public Flower getFlower() {
-        return flower;
-    }
-    public void setFlower(Flower flower) {
+    public void addFlower(Flower flower){
         this.flower = flower;
     }
+
 }

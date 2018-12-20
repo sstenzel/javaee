@@ -1,9 +1,6 @@
 package pl.sstenzel.ug.javaee.florists.ejbjpa.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -14,6 +11,9 @@ public class Card {
     private boolean onPaper;
     private boolean electronicVersion;
     private String description;
+
+    @OneToOne(mappedBy="flower", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Flower flower;
 
     public Card (){}
 
@@ -56,5 +56,9 @@ public class Card {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void addFlower(Flower flower){
+        this.flower = flower;
     }
 }

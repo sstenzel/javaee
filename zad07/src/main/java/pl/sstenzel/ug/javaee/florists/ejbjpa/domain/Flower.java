@@ -4,12 +4,15 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @XmlRootElement
 @Entity
-@NamedQueries({
+@NamedQueries({                 //TODO
         @NamedQuery(name = "flower.getAll", query = "Select f from Flower f"),
+//                query = "Select f from Flower f join f.watermen w where w in (:watermen)"),
+//                query = "Select f from Flower f join Waterman w where w.watermen.id = w.id"),
         @NamedQuery(name="flower.deleteAll", query="Delete from Flower")
 })
 public class Flower {
@@ -18,14 +21,15 @@ public class Flower {
 //    private Date dateOfPlant;
 //    private Boolean dogToxic;
 
-    @JsonManagedReference
-    private List<Person> watermen = new ArrayList<>();
+    @ManyToMany(mappedBy="flower", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @Column(name = "watermen")
+    private List<Person> watermen = new ArrayList<Person>();
 
-    @JsonManagedReference
+    @OneToOne(mappedBy="flower", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Card careDescription;
-//
-//    @JsonManagedReference
-//    private List<Fertilization> fertilizations = new ArrayList<>();
+
+    @ManyToMany(mappedBy="flower", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Fertilization> fertilizations = new ArrayList<>();
 
     public Flower() {
     }
@@ -41,43 +45,18 @@ public class Flower {
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }
 
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
 
-    @ManyToMany(mappedBy="parent", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    @Fetch(value = FetchMode.SUBSELECT)
-    public List<Person> getWatermen() {
-        return watermen;
-    }
-    public void setWatermen(List<Person> watermen) {
-        this.watermen = watermen;
-    }
     public void addWaterman (Person waterman){
         this.watermen.add(waterman);
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    public Card getCareDescription() {
-        return careDescription;
-    }
-    public void setCareDescription(Card careDescription) {
-        this.careDescription = careDescription;
+    public  void addFertilization(Fertilization fert){
+        this.fertilizations.add(fert);
     }
 
-//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    public List<Fertilization> getFertilizations() {
-//        return fertilizations;
-//    }
-//    public void setFertilizations(List<Fertilization> fertilizations) {
-//        this.fertilizations = fertilizations;
-//    }
-//    public  void addFertilization(Fertilization fert){
-//        this.fertilizations.add(fert);
-//    }
+    public void addCareDescription(Card card){
+        this.careDescription = card;
+    }
 
 
     //
