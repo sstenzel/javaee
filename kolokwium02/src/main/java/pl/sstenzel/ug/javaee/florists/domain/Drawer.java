@@ -14,13 +14,14 @@ public class Drawer {
 
     public Drawer(){
         this.id = 0;
-        this.price = 0;
+        this.price = 0.0;
     }
 
-    public Drawer(String brand, double price, Date productionDate){
+    public Drawer(String brand, double price, Date productionDate, boolean eg){
         this.brand = brand;
         this.price = price;
         this.productionDate = productionDate;
+        this.extraGlass = eg;
     }
 
     public long getId() {
@@ -35,7 +36,7 @@ public class Drawer {
         return brand;
     }
 
-    public void getBrand(String brand) {
+    public void setBrand(String brand) {
         this.brand = brand;
     }
 
@@ -94,7 +95,7 @@ public class Drawer {
 
     public void clear(){
         id = 0;
-        price = 0;
+        price = 0.0;
         productionDate = null;
         extraGlass = false;
         brand = null;

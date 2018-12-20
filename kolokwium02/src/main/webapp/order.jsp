@@ -46,7 +46,7 @@
     <p>
 
         <label>Production date</label>
-        <input type='text' name='expirationDate'
+        <input type='text' name='productionDate'
                 <%
                     if(userOrder.getProductionDate() != null)
                         out.print(" value='"+Drawer.dateToString(userOrder.getProductionDate())+"' ");
@@ -57,7 +57,7 @@
     <p>
 
         <label>Proposed price</label>
-        <input type='text' name='packets'
+        <input type='text' name='price'
                 <%
                     if(userOrder != null && userOrder.getPrice() > 0)
                         out.print("value='"+userOrder.getPrice()+"' ");

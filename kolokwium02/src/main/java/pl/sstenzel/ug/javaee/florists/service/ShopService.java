@@ -16,7 +16,7 @@ public class ShopService {
 
     public ShopService() {
         brand.add("Super-meble");
-        brand.add("IKEA super drawer");
+        brand.add("IKEAsuperdrawer");
         brand.add("Henius-meble");
         idIncremet = 1;
     }
