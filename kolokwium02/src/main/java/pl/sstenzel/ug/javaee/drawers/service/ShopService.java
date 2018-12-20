@@ -1,7 +1,6 @@
-package pl.sstenzel.ug.javaee.florists.service;
+package pl.sstenzel.ug.javaee.drawers.service;
 
-import pl.sstenzel.ug.javaee.florists.domain.Drawer;
-import pl.sstenzel.ug.javaee.florists.domain.Drawer;
+import pl.sstenzel.ug.javaee.drawers.domain.Drawer;
 
 import java.util.ArrayList;
 import java.util.HashMap;

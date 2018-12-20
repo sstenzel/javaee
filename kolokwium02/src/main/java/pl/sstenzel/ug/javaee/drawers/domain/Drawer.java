@@ -1,4 +1,4 @@
-package pl.sstenzel.ug.javaee.florists.domain;
+package pl.sstenzel.ug.javaee.drawers.domain;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

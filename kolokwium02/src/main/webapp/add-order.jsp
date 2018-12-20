@@ -1,4 +1,4 @@
-<%@ page import="pl.sstenzel.ug.javaee.florists.domain.Drawer" %>
+<%@ page import="pl.sstenzel.ug.javaee.drawers.domain.Drawer" %>
 <%@ page import="java.util.Date" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
@@ -7,8 +7,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
-<jsp:useBean id="allOrders" class="pl.sstenzel.ug.javaee.florists.service.ShopService" scope="application"/>
-<jsp:useBean id="userOrder" class="pl.sstenzel.ug.javaee.florists.domain.Drawer" scope="session"/>
+<jsp:useBean id="allOrders" class="pl.sstenzel.ug.javaee.drawers.service.ShopService" scope="application"/>
+<jsp:useBean id="userOrder" class="pl.sstenzel.ug.javaee.drawers.domain.Drawer" scope="session"/>
 <jsp:setProperty name="userOrder" property="brand"/>
 <jsp:setProperty name="userOrder" property="price"/>
 
