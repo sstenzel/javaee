@@ -1,0 +1,351 @@
+{
+	"info": {
+		"_postman_id": "0387b042-cbfc-4171-b0ec-088fa3cd10bf",
+		"name": "floristsREST",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "test",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": false
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"gozdzik\", \n\t\"pickDate\": \"2001-12-12\", \n\t\"dogToxic\": \"false\",\n\t\"price\": \"12\",\n\t\"amount\": \"4\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/florists/api/flower/test",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"florists",
+						"api",
+						"flower",
+						"test"
+					]
+				},
+				"description": "test"
+			},
+			"response": []
+		},
+		{
+			"name": "add flower",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": false
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"gozdzik\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/florists/api/flower",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"florists",
+						"api",
+						"flower"
+					]
+				},
+				"description": "test"
+			},
+			"response": []
+		},
+		{
+			"name": "get all flowers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/florists/api/flower",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"florists",
+						"api",
+						"flower"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get flower",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/florists/api/flower/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"florists",
+						"api",
+						"flower",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": \"1\",\n\t\"name\": \"bazylia\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/florists/api/flower",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"florists",
+						"api",
+						"flower"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/florists/api/flower/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"florists",
+						"api",
+						"flower",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "clear",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/florists/api/flower",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"florists",
+						"api",
+						"flower"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all people",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/florists/api/person",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"florists",
+						"api",
+						"person"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get person",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/florists/api/person/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"florists",
+						"api",
+						"person",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add person",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Mietek\",\n    \"surname\": \"Kropkowski\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/florists/api/person",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"florists",
+						"api",
+						"person"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add waterman",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Anka\",\n    \"surname\": \"Kropkowska\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/florists/api/flower/1/addwaterman",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"florists",
+						"api",
+						"flower",
+						"1",
+						"addwaterman"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add waterman by id",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/florists/api/flower/1/addwaterman/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"florists",
+						"api",
+						"flower",
+						"1",
+						"addwaterman",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
