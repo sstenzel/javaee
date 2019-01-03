@@ -131,7 +131,6 @@ public class FlowerRESTService {
         if (flower == null )
             return Response.status(204).entity("Flower/person not found").build();
 
-
         flower.addWaterman(person);
         person.addFlower(flower);
 
@@ -175,8 +174,11 @@ public class FlowerRESTService {
         if (flower == null )
             return Response.status(204).entity("Flower not found").build();
 
-        flower.addFertilization(fertilization);
-        fertilization.addFlower(flower);
+//        flower.addFertilization(fertilization);
+//        fertilization.addFlower(flower);
+
+        // TODO TU ODKOMENTOWAC
+
         fs.addFertilization(fertilization);
 
         return Response.status(200).entity("added fertilization to flower").build();
