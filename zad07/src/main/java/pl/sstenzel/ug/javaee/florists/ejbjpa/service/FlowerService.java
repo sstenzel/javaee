@@ -1,10 +1,16 @@
 package pl.sstenzel.ug.javaee.florists.ejbjpa.service;
 
 import pl.sstenzel.ug.javaee.florists.ejbjpa.domain.Flower;
+import pl.sstenzel.ug.javaee.florists.ejbjpa.domain.Person;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Root;
+import java.nio.channels.FileLock;
 import java.util.*;
 
 @Stateless  // tworzymy bezstanowe managery
@@ -17,27 +23,27 @@ public class FlowerService {
     EntityManager entityManager; // z javax, manager do zarzadzania baza
 
     public Flower getFlower(Long id){
-
-        return entityManager.find(Flower.class, id);
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Flower> c = builder.createQuery(Flower.class);
+        Root<Flower> flower = c.from(Flower.class);
+        flower.fetch("persons", JoinType.LEFT);
+        c.where(builder.equal(flower.get("id"), id));
+        c.distinct(true);
+        return entityManager.createQuery(c).getSingleResult();
     }
 
     public void addFlower (Flower flower){
         entityManager.persist(flower);
-
-        // tuatj mozna zmienic po persist wartosci flowera
-        // bo cala ta funkcja jest transakcja
-        // (albo do flusha)
-        // encja podlaczona do contekstu i sledzi jej zmiany
-
-        // odlaczanie od kontekstu: entityManager.detach(flower);
-        // em.merge(flower);    - nanoszenie zmian
-        //                      - update + podlaczenie do kontekstu
     }
 
     @SuppressWarnings("unchecked")
     public List<Flower> getAllFlowers(){
-
-        return entityManager.createNamedQuery("flower.getAll").getResultList();
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Flower> c = builder.createQuery(Flower.class);
+        Root<Flower> root = c.from(Flower.class);
+        root.fetch("persons", JoinType.LEFT);
+        c.distinct(true);
+        return entityManager.createQuery(c).getResultList();
     }
 
     public Flower updateFlower(Flower flower) {
@@ -54,4 +60,34 @@ public class FlowerService {
         entityManager.remove(flower);
     }
 
+    public List<Person> getFlowerPersons(long id){
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Person> c = builder.createQuery(Person.class);
+        Root<Person> root = c.from(Person.class);
+        root.fetch("persons", JoinType.LEFT);
+        c.where(builder.equal(root.get("id"), id));
+        c.distinct(true);
+        return entityManager.createQuery(c).getResultList();
+    }
+
+    public boolean addWaterman(long flowerId, long personId) {
+        Flower f = entityManager.find(Flower.class, flowerId);
+        Person p = entityManager.find(Person.class, personId);
+        if(f == null || p==null)
+            return false;
+        f.getPersons().add(p);
+        entityManager.merge(f);
+        return true;
+    }
+
+
+    public boolean removeWaterman(long flowerId, long personId) {
+        Flower f = entityManager.find(Flower.class, flowerId);
+        Person p = entityManager.find(Person.class, personId);
+        if(f == null || p==null)
+            return false;
+        f.getPersons().remove(p);
+        entityManager.merge(f);
+        return true;
+    }
 }

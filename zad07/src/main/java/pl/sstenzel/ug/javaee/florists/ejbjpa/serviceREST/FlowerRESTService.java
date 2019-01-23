@@ -1,5 +1,6 @@
 package pl.sstenzel.ug.javaee.florists.ejbjpa.serviceREST;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import pl.sstenzel.ug.javaee.florists.ejbjpa.domain.Card;
 import pl.sstenzel.ug.javaee.florists.ejbjpa.domain.Fertilization;
 import pl.sstenzel.ug.javaee.florists.ejbjpa.domain.Flower;
@@ -8,6 +9,7 @@ import pl.sstenzel.ug.javaee.florists.ejbjpa.service.CardService;
 import pl.sstenzel.ug.javaee.florists.ejbjpa.service.FertilizationService;
 import pl.sstenzel.ug.javaee.florists.ejbjpa.service.FlowerService;
 import pl.sstenzel.ug.javaee.florists.ejbjpa.service.PersonService;
+import pl.sstenzel.ug.javaee.florists.ejbjpa.view.View;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -17,7 +19,7 @@ import javax.ws.rs.core.Response;
 import java.util.Collection;
 
 /*
- *  localhost:8080/florists/api/flower/test
+      localhost:8080/florists/api/flower/test
  */
 
 @Path("flower")
@@ -38,8 +40,8 @@ public class FlowerRESTService {
     PersonService ps;
     @Inject
     CardService cs;
-    @Inject
-    FertilizationService fs;
+//    @Inject
+//    FertilizationService fs;
 
     @GET
     @Path("/test")
@@ -52,6 +54,7 @@ public class FlowerRESTService {
     @GET
     @Path("/{flowerId}")
     @Produces(MediaType.APPLICATION_JSON)
+    @JsonView(View.FlowerRealtions.class)
     public Response getFlower(@PathParam("flowerId") long id) {
         Flower flower = flowerService.getFlower(id);
         if (flower != null)
@@ -61,9 +64,10 @@ public class FlowerRESTService {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @JsonView(View.FlowerRealtions.class)
     public Response getAllFlowers() {
         Collection<Flower> flowers = flowerService.getAllFlowers();
-        if (flowers.size() > 0)
+        if (flowers.size() > 0 && flowers != null)
             return Response.status(200).entity(flowers).build();
         return Response.status(204).entity("Flowers not found").build();
     }
@@ -88,11 +92,11 @@ public class FlowerRESTService {
     }
 
 
-    @DELETE
-    public Response deleteAllFlowers() {
-        flowerService.deleteAllFlowers();
-        return Response.status(200).build();
-    }
+//    @DELETE
+//    public Response deleteAllFlowers() {
+//        flowerService.deleteAllFlowers();
+//        return Response.status(200).build();
+//    }
 
     @DELETE
     @Path("/{flowerId}")
@@ -102,42 +106,25 @@ public class FlowerRESTService {
     }
 
 
-    @PUT
-    @Path("/{flowerId}/addwaterman")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response addWaterman(@PathParam("flowerId") long id, Person person) {
-        Flower flower = flowerService.getFlower(id);
-        if (flower == null)
-            return Response.status(204).entity("Flower not found").build();
-
-        flower.addWaterman(person);
-        person.addFlower(flower);
-
-        ps.addPerson(person);
-        flowerService.updateFlower(flower);
-
-        return Response.status(200).entity("add waterman to flower").build();
-    }
 
     @PUT
     @Path("/{flowerId}/addwaterman/{personId}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response addWaterman(@PathParam("flowerId") long flowerId, @PathParam("personId") long personId) {
-        Flower flower = flowerService.getFlower(flowerId);
-        Person person = ps.getPerson(personId);
-
-        if (flower == null )
+        if (!flowerService.addWaterman(flowerId,personId))
             return Response.status(204).entity("Flower/person not found").build();
-
-        flower.addWaterman(person);
-        person.addFlower(flower);
-
-        flowerService.updateFlower(flower);
-        ps.updatePerson(person);
-
         return Response.status(200).entity("added waterman to flower").build();
+    }
+
+    @PUT
+    @Path("/{flowerId}/removewaterman/{personId}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response removeWaterman(@PathParam("flowerId") long flowerId, @PathParam("personId") long personId) {
+        if (!flowerService.removeWaterman(flowerId,personId))
+            return Response.status(204).entity("Flower/person not found").build();
+        return Response.status(200).entity("waterman removed from flower").build();
     }
 
 
@@ -150,8 +137,8 @@ public class FlowerRESTService {
         Flower flower = flowerService.getFlower(flowerId);
         if (flower == null )
             return Response.status(204).entity("Flower not found").build();
-        flower.addCareDescription(card);
-        card.addFlower(flower);
+        flower.setCareDescription(card);
+//        card.addFlower(flower);
         cs.addCard(card);
 
         return Response.status(200).entity("added care description to flower").build();
@@ -164,24 +151,24 @@ public class FlowerRESTService {
 //    public Response getCard(@PathParam("flowerId") long flowerId, @PathParam("cardId") long cardId){
 //    }
 
-    @PUT
-    @Path("/{flowerId}/addfert")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response addFert(@PathParam("flowerId") long flowerId, Fertilization fertilization){
-
-        Flower flower = flowerService.getFlower(flowerId);
-        if (flower == null )
-            return Response.status(204).entity("Flower not found").build();
-
-//        flower.addFertilization(fertilization);
-//        fertilization.addFlower(flower);
-
-        // TODO TU ODKOMENTOWAC
-
-        fs.addFertilization(fertilization);
-
-        return Response.status(200).entity("added fertilization to flower").build();
-    }
+//    @PUT
+//    @Path("/{flowerId}/addfert")
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response addFert(@PathParam("flowerId") long flowerId, Fertilization fertilization){
+//
+//        Flower flower = flowerService.getFlower(flowerId);
+//        if (flower == null )
+//            return Response.status(204).entity("Flower not found").build();
+//
+////        flower.addFertilization(fertilization);
+////        fertilization.addFlower(flower);
+//
+//        // TODO TU ODKOMENTOWAC
+//
+//        fs.addFertilization(fertilization);
+//
+//        return Response.status(200).entity("added fertilization to flower").build();
+//    }
 
 }

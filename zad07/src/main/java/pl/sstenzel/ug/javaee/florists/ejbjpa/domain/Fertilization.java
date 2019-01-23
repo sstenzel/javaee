@@ -16,6 +16,8 @@ public class Fertilization {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Flower flower;
 
+
+    public Fertilization() {}
     public Fertilization(String fertilizer) {
         super();
 //        this.date = date;

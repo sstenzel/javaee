@@ -12,8 +12,8 @@ public class Card {
     private boolean electronicVersion;
     private String description;
 
-    @OneToOne(mappedBy="flower", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Flower flower;
+//    @OneToOne(mappedBy="flower", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private Flower flower;
 
     public Card (){}
 
@@ -58,7 +58,7 @@ public class Card {
         this.description = description;
     }
 
-    public void addFlower(Flower flower){
-        this.flower = flower;
-    }
+//    public void addFlower(Flower flower){
+//        this.flower = flower;
+//    }
 }

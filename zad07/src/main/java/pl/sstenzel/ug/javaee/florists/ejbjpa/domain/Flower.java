@@ -2,6 +2,9 @@ package pl.sstenzel.ug.javaee.florists.ejbjpa.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonView;
+import pl.sstenzel.ug.javaee.florists.ejbjpa.view.View;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.sql.Date;
@@ -14,21 +17,25 @@ import java.util.List;
 @NamedQueries({                 //TODO
         @NamedQuery(name = "flower.getAll",
                 query = "Select f from Flower f"),
-//                query = "Select f from Flower f joinf.watermen w where w in (:watermen)"),
-//                query = "Select f from Flower f join Waterman w where w.watermen.id = w.id"),
+//        query = "SELECT l FROM Laptop l LEFT JOIN FETCH l.manufacturer m LEFT JOIN FETCH l.owners")
+////                query = "Select f from Flower f joinf.watermen w where w in (:watermen)"),
+////                query = "Select f from Flower f join Waterman w where w.watermen.id = w.id"),
         @NamedQuery(name="flower.deleteAll", query="Delete from Flower")
 })
 public class Flower {
+
+    @JsonView(View.Flower.class)
     private long id;
+    @JsonView(View.Flower.class)
     private String name;
+    @JsonView(View.Flower.class)
     private Date dateOfPlant;
+    @JsonView(View.Flower.class)
     private Boolean dogToxic;
 
-    @ManyToMany(mappedBy="flower", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    @Column(name = "watermen")
-    private List<Person> watermen = new ArrayList<Person>();
-
-    @OneToOne(mappedBy="flower", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonView({View.FlowerRealtions.class, View.FlowerWatermen.class})
+    private List<Person> persons = new ArrayList<Person>();
+    @JsonView(View.FlowerRealtions.class)
     private Card careDescription;
 
 //    @ManyToMany(mappedBy="flower", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -63,18 +70,17 @@ public class Flower {
     public long getId() { return id; }
     public void setId(long id) { this.id = id; }
 
-
-    public void addWaterman (Person waterman){
-        this.watermen.add(waterman);
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public List<Person> getPersons() {
+        return persons;
     }
 
-//    public  void addFertilization(Fertilization fert){
-//        this.fertilizations.add(fert);
-//    }
-
-    public void addCareDescription(Card card){
-        this.careDescription = card;
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
     }
+
+
+
 
     public String getName() {
         return name;
@@ -110,7 +116,12 @@ public class Flower {
 //        this.amount -= amount;
 //    }
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    public Card getCareDescription() {
+        return careDescription;
+    }
 
-
-
+    public void setCareDescription(Card careDescription) {
+        this.careDescription = careDescription;
+    }
 }

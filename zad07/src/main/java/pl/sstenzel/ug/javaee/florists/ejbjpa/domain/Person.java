@@ -1,6 +1,9 @@
 package pl.sstenzel.ug.javaee.florists.ejbjpa.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import pl.sstenzel.ug.javaee.florists.ejbjpa.view.View;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -9,15 +12,16 @@ import java.util.List;
 
 @Entity
 @XmlRootElement
-@NamedQueries({
-        @NamedQuery(name = "person.getAll", query = "Select p from Person p")
-})
 public class Person {
+
+    @JsonView({View.Person.class,View.FlowerRealtions.class})
     private long id;
+    @JsonView({View.Person.class,View.FlowerRealtions.class})
     private String name;
+    @JsonView({View.Person.class,View.FlowerRealtions.class})
     private String surname;
 
-    @ManyToMany(mappedBy="flowers", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonView(View.PersonRelations.class)
     private List<Flower> flowers = new ArrayList<>();
 
     public Person() {}
@@ -53,5 +57,14 @@ public class Person {
         this.surname = surname;
     }
 
-    public void addFlower(Flower flower) {this.flowers.add(flower);}
+//    public void addFlower(Flower flower) {this.flowers.add(flower);}
+
+    @ManyToMany(mappedBy = "persons",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public List<Flower> getFlowers() {
+        return flowers;
+    }
+
+    public void setFlowers(List<Flower> flowers) {
+        this.flowers = flowers;
+    }
 }
