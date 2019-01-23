@@ -23,21 +23,12 @@ public class FlowerRESTServiceTest {
     }
 
 //    @Test
-//    public void test1() {
-//    }
-//
-//    @Test
 //    public void get() {
 //        given().
 //                contentType(MediaType.APPLICATION_JSON).
 //                when().
 //                get("/flower/").then().assertThat().statusCode(200);
 //    }
-//
-//    @Test
-//    public void get1() {
-//    }
-
 //    @Test
 //    public void add() {
 //        delete("/flower/").then().assertThat().statusCode(200);
@@ -51,15 +42,4 @@ public class FlowerRESTServiceTest {
 //                post("/flower/").then().assertThat().statusCode(201);
 //    }
 
-//    @Test
-//    public void update() {
-//    }
-//
-//    @Test
-//    public void clear() {
-//    }
-//
-//    @Test
-//    public void deleteFlower() {
-//    }
 }

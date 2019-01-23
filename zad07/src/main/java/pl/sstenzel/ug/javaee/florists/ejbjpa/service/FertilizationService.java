@@ -12,11 +12,13 @@ public class FertilizationService {
     @PersistenceContext
     EntityManager em;
 
-    public void addFertilization(Fertilization fertilization){
+    public void addFertilization(Fertilization fertilization)
+    {
         em.persist(fertilization);
     }
 
-    public Fertilization getFertilization(long id){
+    public Fertilization getFertilization(long id)
+    {
         return em.find(Fertilization.class, id);
     }
 

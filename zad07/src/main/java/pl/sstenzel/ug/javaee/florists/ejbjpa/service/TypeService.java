@@ -1,6 +1,6 @@
 package pl.sstenzel.ug.javaee.florists.ejbjpa.service;
 
-import pl.sstenzel.ug.javaee.florists.ejbjpa.domain.Person;
+import pl.sstenzel.ug.javaee.florists.ejbjpa.domain.Type;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -10,35 +10,35 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
+
 @Stateless
-public class PersonService {
+public class TypeService {
 
     @PersistenceContext
     EntityManager entityManager;
 
-    public void addPerson(Person person){
-        entityManager.persist(person);
+    public void addType(Type type){
+        entityManager.persist(type);
     }
 
-    public Person getPerson(Long id) {
+    public Type getType(Long id) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Person> c = builder.createQuery(Person.class);
-        Root<Person> root = c.from(Person.class);
+        CriteriaQuery<Type> c = builder.createQuery(Type.class);
+        Root<Type> root = c.from(Type.class);
         c.where(builder.equal(root.get("id"), id));
         c.distinct(true);
         return entityManager.createQuery(c).getSingleResult();
     }
 
-    public void updatePerson(Person person){
-        entityManager.merge(person);
+    public void updateType(Type type){
+        entityManager.merge(type);
     }
 
-    public List<Person> getAllPeople(){
-         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Person> c = builder.createQuery(Person.class);
-        Root<Person> root = c.from(Person.class);
+    public List<Type> getAllTypes(){
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Type> c = builder.createQuery(Type.class);
+        Root<Type> root = c.from(Type.class);
         c.distinct(true);
         return entityManager.createQuery(c).getResultList();
     }
-
 }

@@ -92,11 +92,11 @@ public class FlowerRESTService {
     }
 
 
-//    @DELETE
-//    public Response deleteAllFlowers() {
-//        flowerService.deleteAllFlowers();
-//        return Response.status(200).build();
-//    }
+    @DELETE
+    public Response deleteAllFlowers() {
+        flowerService.deleteAllFlowers();
+        return Response.status(200).build();
+    }
 
     @DELETE
     @Path("/{flowerId}")
@@ -129,44 +129,33 @@ public class FlowerRESTService {
 
 
     @PUT
-    @Path("/{flowerId}/addcard")
+    @Path("/{flowerId}/setcard")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addCard(@PathParam("flowerId") long flowerId, Card card){
-
-        Flower flower = flowerService.getFlower(flowerId);
-        if (flower == null )
+    public Response setCard(@PathParam("flowerId") long flowerId, Card card){
+        if (!flowerService.setCard(flowerId, card))
             return Response.status(204).entity("Flower not found").build();
-        flower.setCareDescription(card);
-//        card.addFlower(flower);
-        cs.addCard(card);
-
         return Response.status(200).entity("added care description to flower").build();
     }
 
+    @PUT
+    @Path("/{flowerId}/settype/{typeId}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response setType(@PathParam("flowerId") long flowerId, @PathParam("typeId") long typeId){
+        if (!flowerService.setType(flowerId, typeId))
+            return Response.status(204).entity("Flower not found").build();
+        return Response.status(200).entity("set type to flower").build();
+    }
 
-//    @GET
-//    @Path("/{flowerId}/addcard/{cardId}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response getCard(@PathParam("flowerId") long flowerId, @PathParam("cardId") long cardId){
-//    }
 
 //    @PUT
 //    @Path("/{flowerId}/addfert")
 //    @Consumes(MediaType.APPLICATION_JSON)
 //    @Produces(MediaType.APPLICATION_JSON)
-//    public Response addFert(@PathParam("flowerId") long flowerId, Fertilization fertilization){
-//
-//        Flower flower = flowerService.getFlower(flowerId);
-//        if (flower == null )
+//    public Response addFertilization(@PathParam("flowerId") long flowerId, Fertilization fertilization){
+//        if (! flowerService.addFertilization(flowerId, fertilization) )
 //            return Response.status(204).entity("Flower not found").build();
-//
-////        flower.addFertilization(fertilization);
-////        fertilization.addFlower(flower);
-//
-//        // TODO TU ODKOMENTOWAC
-//
-//        fs.addFertilization(fertilization);
 //
 //        return Response.status(200).entity("added fertilization to flower").build();
 //    }

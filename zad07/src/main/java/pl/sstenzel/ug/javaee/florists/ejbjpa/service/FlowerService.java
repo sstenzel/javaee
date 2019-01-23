@@ -1,7 +1,6 @@
 package pl.sstenzel.ug.javaee.florists.ejbjpa.service;
 
-import pl.sstenzel.ug.javaee.florists.ejbjpa.domain.Flower;
-import pl.sstenzel.ug.javaee.florists.ejbjpa.domain.Person;
+import pl.sstenzel.ug.javaee.florists.ejbjpa.domain.*;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -27,6 +26,8 @@ public class FlowerService {
         CriteriaQuery<Flower> c = builder.createQuery(Flower.class);
         Root<Flower> flower = c.from(Flower.class);
         flower.fetch("persons", JoinType.LEFT);
+        flower.fetch("type", JoinType.LEFT);
+        flower.fetch("careDescription", JoinType.LEFT);
         c.where(builder.equal(flower.get("id"), id));
         c.distinct(true);
         return entityManager.createQuery(c).getSingleResult();
@@ -42,6 +43,8 @@ public class FlowerService {
         CriteriaQuery<Flower> c = builder.createQuery(Flower.class);
         Root<Flower> root = c.from(Flower.class);
         root.fetch("persons", JoinType.LEFT);
+        root.fetch("type", JoinType.LEFT);
+        root.fetch("careDescription", JoinType.LEFT);
         c.distinct(true);
         return entityManager.createQuery(c).getResultList();
     }
@@ -90,4 +93,38 @@ public class FlowerService {
         entityManager.merge(f);
         return true;
     }
+
+
+    public boolean setCard(long flowerId, Card card) {
+        Flower f = entityManager.find(Flower.class, flowerId);
+        entityManager.persist(card);
+        if(f == null || card==null)
+            return false;
+        f.setCareDescription(card);
+        entityManager.merge(f);
+        return true;
+    }
+
+//    public boolean addFertilization(long flowerId, Fertilization fertilization) {
+//        Flower f = entityManager.find(Flower.class, flowerId);
+//        entityManager.persist(fertilization);
+//        if(f == null || fertilization==null)
+//            return false;
+//        f.getFertilizations().add(fertilization);
+//        entityManager.merge(f);
+//        return true;
+//    }
+
+    public boolean setType(long flowerId, long typeId) {
+        Flower f = entityManager.find(Flower.class, flowerId);
+        Type t = entityManager.find(Type.class, typeId);
+        if(f == null || t==null)
+            return false;
+        f.setType(t);
+        entityManager.merge(f);
+        return true;
+    }
+
+
+
 }

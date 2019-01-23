@@ -14,14 +14,10 @@ import java.util.List;
 
 @XmlRootElement
 @Entity
-@NamedQueries({                 //TODO
-        @NamedQuery(name = "flower.getAll",
-                query = "Select f from Flower f"),
-//        query = "SELECT l FROM Laptop l LEFT JOIN FETCH l.manufacturer m LEFT JOIN FETCH l.owners")
-////                query = "Select f from Flower f joinf.watermen w where w in (:watermen)"),
-////                query = "Select f from Flower f join Waterman w where w.watermen.id = w.id"),
+@NamedQueries({
         @NamedQuery(name="flower.deleteAll", query="Delete from Flower")
 })
+
 public class Flower {
 
     @JsonView(View.Flower.class)
@@ -38,11 +34,12 @@ public class Flower {
     @JsonView(View.FlowerRealtions.class)
     private Card careDescription;
 
-//    @ManyToMany(mappedBy="flower", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonView(View.FlowerRealtions.class)
+    private Type type;
+
+//    @JsonView(View.FlowerRealtions.class)
 //    private List<Fertilization> fertilizations = new ArrayList<>();
 
-
-    // many to one -  fetch type - eager
 
     public Flower() {
     }
@@ -79,8 +76,13 @@ public class Flower {
         this.persons = persons;
     }
 
-
-
+//    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    public List<Fertilization> getFertilizations() {
+//        return fertilizations;
+//    }
+//    public void setFertilizations(List<Fertilization> fertilizations) {
+//        this.fertilizations = fertilizations;
+//    }
 
     public String getName() {
         return name;
@@ -90,7 +92,7 @@ public class Flower {
         this.name = name;
     }
 
-        @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     public Date getDateOfPlant() {
         return dateOfPlant;
     }
@@ -106,22 +108,21 @@ public class Flower {
         this.dogToxic = dogToxic;
     }
 
-    //    public boolean isOneMoreItem (long inBasket) {
-//        if(getAmount() > inBasket){
-//            return true;
-//        }
-//        return false;
-//    }
-//    public void substractAmount(long amount) {
-//        this.amount -= amount;
-//    }
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public Card getCareDescription() {
         return careDescription;
     }
 
     public void setCareDescription(Card careDescription) {
         this.careDescription = careDescription;
+    }
+
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 }

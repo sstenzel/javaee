@@ -42,7 +42,7 @@ public class PersonRESTService {
         Collection<Person> people = ps.getAllPeople();
         if (people.size() > 0 && people !=null)
             return Response.status(200).entity(people).build();
-        return Response.status(204).entity("Flowers not found").build();
+        return Response.status(204).entity("People not found").build();
     }
 
 

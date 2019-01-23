@@ -1,31 +1,29 @@
 package pl.sstenzel.ug.javaee.florists.ejbjpa.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonView;
+import pl.sstenzel.ug.javaee.florists.ejbjpa.view.View;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.sql.Date;
 
-@Entity
-@XmlRootElement
+//@Entity
+//@XmlRootElement
 public class Fertilization {
     private long id;
 //    private Date date;
     private String fertilizer;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Flower flower;
-
 
     public Fertilization() {}
     public Fertilization(String fertilizer) {
-        super();
 //        this.date = date;
         this.fertilizer = fertilizer;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
@@ -47,8 +45,6 @@ public class Fertilization {
         this.fertilizer = fertilizer;
     }
 
-    public void addFlower(Flower flower){
-        this.flower = flower;
-    }
+
 
 }
