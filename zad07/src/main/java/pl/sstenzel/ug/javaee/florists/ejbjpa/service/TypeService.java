@@ -3,6 +3,7 @@ package pl.sstenzel.ug.javaee.florists.ejbjpa.service;
 import pl.sstenzel.ug.javaee.florists.ejbjpa.domain.Type;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -16,6 +17,8 @@ public class TypeService {
 
     @PersistenceContext
     EntityManager entityManager;
+    @Inject
+    FlowerService flowerService;
 
     public void addType(Type type){
         entityManager.persist(type);
@@ -30,9 +33,18 @@ public class TypeService {
         return entityManager.createQuery(c).getSingleResult();
     }
 
-    public void updateType(Type type){
-        entityManager.merge(type);
+    public Type updateType(Type type){
+        return entityManager.merge(type);
     }
+
+    public boolean deleteType(long id){
+        if (!flowerService.findByCareDescription(id).isEmpty())
+            return false;
+        Type type = getType(id);
+        entityManager.remove(type);
+        return true;
+    }
+
 
     public List<Type> getAllTypes(){
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();

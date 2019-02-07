@@ -20,6 +20,10 @@ import java.util.List;
         @NamedQuery(name = "flower.deleteAll", query = "DELETE FROM Flower"),
         @NamedQuery(name = "flower.byType",
                 query = "SELECT f FROM Flower f JOIN f.type t WHERE LOWER(t.name) LIKE LOWER(CONCAT('%', :type, '%'))"),
+        @NamedQuery(name = "flower.byCareDescriptionId",
+                query = "SELECT f FROM Flower f WHERE f.careDescription.id = :id"),
+        @NamedQuery(name = "flower.byTypeId",
+                query = "SELECT f FROM Flower f WHERE f.type.id = :id")
 })
 
 

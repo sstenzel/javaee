@@ -40,5 +40,22 @@ public class TypeRESTService {
         ts.addType(type);
         return Response.status(201).entity("add type").build();
     }
+
+
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateType(Type type) {
+        Type type2 = ts.updateType(type);
+        return Response.status(201).entity(type2).build();
+    }
+
+    @DELETE
+    @Path("/{typeId}")
+    public Response deleteType(@PathParam("typeId") long id) {
+        if (ts.deleteType(id))
+            return Response.status(200).build();
+        return Response.status(409).build();
+    }
     
 }

@@ -4,7 +4,6 @@ import pl.sstenzel.ug.javaee.florists.ejbjpa.domain.*;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -140,7 +139,6 @@ public class FlowerService {
         query.setParameter("dateFrom", from);
         query.setParameter("dateTo", to);
         return query.getResultList();
-
     }
 
     public List<Flower> findByCareDescription(String name){
@@ -161,6 +159,20 @@ public class FlowerService {
         query.distinct(true);
 
         return entityManager.createQuery(query).getResultList();
+    }
+
+    public List<Flower> findByCareDescription (long id){
+        Query query
+                = entityManager.createNamedQuery("flower.byCareDescriptionId");
+        query.setParameter("id", id);
+        return query.getResultList();
+    }
+
+    public List<Flower> findByType (long id){
+        Query query
+                = entityManager.createNamedQuery("flower.byTypeId");
+        query.setParameter("id", id);
+        return query.getResultList();
     }
 
 }

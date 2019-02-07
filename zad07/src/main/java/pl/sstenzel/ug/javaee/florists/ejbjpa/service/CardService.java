@@ -3,6 +3,7 @@ package pl.sstenzel.ug.javaee.florists.ejbjpa.service;
 import pl.sstenzel.ug.javaee.florists.ejbjpa.domain.Card;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -15,6 +16,8 @@ public class CardService {
 
     @PersistenceContext
     EntityManager em;
+    @Inject
+    FlowerService flowerService;
 
     public void addCard(Card card){
         em.persist(card);
@@ -24,9 +27,16 @@ public class CardService {
         return em.find(Card.class, id);
     }
 
-    public void removeCard(long id){
-        Card card = em.find(Card.class, id);
+    public boolean removeCard(long id){
+        if (!flowerService.findByCareDescription(id).isEmpty())
+            return false;
+        Card card = getCard(id);
         em.remove(card);
+        return true;
+    }
+
+    public Card updateCard(Card card){
+        return em.merge(card);
     }
 
     public List<Card> getAllCards(){

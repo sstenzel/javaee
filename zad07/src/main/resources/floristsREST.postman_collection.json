@@ -223,7 +223,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "localhost:8080/florists/api/flower/1/removewaterman/1",
+							"raw": "localhost:8080/florists/api/flower/2/removewaterman/3",
 							"host": [
 								"localhost"
 							],
@@ -232,9 +232,9 @@
 								"florists",
 								"api",
 								"flower",
-								"1",
+								"2",
 								"removewaterman",
-								"1"
+								"3"
 							]
 						}
 					},
@@ -650,6 +650,31 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "remove",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/florists/api/type/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"florists",
+								"api",
+								"type",
+								"3"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -675,6 +700,97 @@
 								"florists",
 								"api",
 								"card"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/florists/api/card/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"florists",
+								"api",
+								"card",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"onPaper\": false,\n    \"electronicVersion\": false,\n    \"description\": \"Nawozic raz w miesiacu\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/florists/api/card",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"florists",
+								"api",
+								"card"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/florists/api/card/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"florists",
+								"api",
+								"card",
+								"1"
 							]
 						}
 					},
