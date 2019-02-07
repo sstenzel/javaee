@@ -1,0 +1,721 @@
+{
+	"info": {
+		"_postman_id": "0387b042-cbfc-4171-b0ec-088fa3cd10bf",
+		"name": "floristsREST",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Flower",
+			"item": [
+				{
+					"name": "get",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/florists/api/flower/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"florists",
+								"api",
+								"flower",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"disabled": false
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"Kaktus\",\n\t\"dateOfPlant\": \"2013-05-12\",\n\t\"dogToxic\": \"false\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/florists/api/flower",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"florists",
+								"api",
+								"flower"
+							]
+						},
+						"description": "test"
+					},
+					"response": []
+				},
+				{
+					"name": "get all",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/florists/api/flower",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"florists",
+								"api",
+								"flower"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"id\": \"1\",\n\t\"name\": \"bazylia\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/florists/api/flower",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"florists",
+								"api",
+								"flower"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/florists/api/flower/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"florists",
+								"api",
+								"flower",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete all",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/florists/api/flower",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"florists",
+								"api",
+								"flower"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Flower relations",
+			"item": [
+				{
+					"name": "add waterman",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Amelia\",\n    \"surname\": \"Fiolkowska\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/florists/api/flower/1/addwaterman",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"florists",
+								"api",
+								"flower",
+								"1",
+								"addwaterman"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove waterman",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/florists/api/flower/1/removewaterman/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"florists",
+								"api",
+								"flower",
+								"1",
+								"removewaterman",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set care description",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"onPaper\":true,\n\t\"electronicVersion\": false,\n\t\"description\":\"Jakis super opis opieki nad kwiatkiem\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/florists/api/flower/1/setcard",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"florists",
+								"api",
+								"flower",
+								"1",
+								"setcard"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "set type",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/florists/api/flower/2/settype/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"florists",
+								"api",
+								"flower",
+								"2",
+								"settype",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f072e89c-bfea-46cf-804b-82c55799e943",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "14a9634c-a40f-4280-9c3e-40665ff3eb45",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Queries",
+			"item": [
+				{
+					"name": "flower by date",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/florists/api/flower/byDate/1992-12-12/2010-12-12",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"florists",
+								"api",
+								"flower",
+								"byDate",
+								"1992-12-12",
+								"2010-12-12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "flower by name",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/florists/api/flower/byName/hoj",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"florists",
+								"api",
+								"flower",
+								"byName",
+								"hoj"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "flower by care descr",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/florists/api/flower/byCareDescription/Dwa",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"florists",
+								"api",
+								"flower",
+								"byCareDescription",
+								"Dwa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "people by flower amount",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/florists/api/person/byFlowersAmount/0",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"florists",
+								"api",
+								"person",
+								"byFlowersAmount",
+								"0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "people by toxic flowers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/florists/api/person/byToxicFlowers/0/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"florists",
+								"api",
+								"person",
+								"byToxicFlowers",
+								"0",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "flower by type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/florists/api/flower/byType/lisciaste",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"florists",
+								"api",
+								"flower",
+								"byType",
+								"lisciaste"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Person",
+			"item": [
+				{
+					"name": "get all people",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/florists/api/person",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"florists",
+								"api",
+								"person"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get person",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/florists/api/person/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"florists",
+								"api",
+								"person",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Type",
+			"item": [
+				{
+					"name": "add type",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Palmiaste\"\n}"
+						},
+						"url": {
+							"raw": "localhost:8080/florists/api/type",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"florists",
+								"api",
+								"type"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all types",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/florists/api/type",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"florists",
+								"api",
+								"type"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get type",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/florists/api/type/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"florists",
+								"api",
+								"type",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Card",
+			"item": [
+				{
+					"name": "get all cards",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "localhost:8080/florists/api/card",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"florists",
+								"api",
+								"card"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "test",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"disabled": false
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"gozdzik\", \n\t\"pickDate\": \"2001-12-12\", \n\t\"dogToxic\": \"false\",\n\t\"price\": \"12\",\n\t\"amount\": \"4\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/florists/api/flower/test",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"florists",
+						"api",
+						"flower",
+						"test"
+					]
+				},
+				"description": "test"
+			},
+			"response": []
+		}
+	]
+}

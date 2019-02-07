@@ -7,13 +7,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Card {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private boolean onPaper;
     private boolean electronicVersion;
     private String description;
-
-//    @OneToOne(mappedBy="flower", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private Flower flower;
 
     public Card (){}
 
@@ -24,12 +23,9 @@ public class Card {
         this.description = description;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
@@ -37,7 +33,6 @@ public class Card {
     public boolean isOnPaper() {
         return onPaper;
     }
-
     public void setOnPaper(boolean onPaper) {
         this.onPaper = onPaper;
     }
@@ -45,7 +40,6 @@ public class Card {
     public boolean isElectronicVersion() {
         return electronicVersion;
     }
-
     public void setElectronicVersion(boolean electronicVersion) {
         this.electronicVersion = electronicVersion;
     }
@@ -53,12 +47,8 @@ public class Card {
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
 
-//    public void addFlower(Flower flower){
-//        this.flower = flower;
-//    }
 }

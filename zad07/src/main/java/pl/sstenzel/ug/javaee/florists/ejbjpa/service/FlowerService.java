@@ -4,33 +4,36 @@ import pl.sstenzel.ug.javaee.florists.ejbjpa.domain.*;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityNotFoundException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Root;
-import java.nio.channels.FileLock;
 import java.util.*;
+import java.sql.Date;
 
-@Stateless  // tworzymy bezstanowe managery
+@Stateless
 public class FlowerService {
 
 
-    @PersistenceContext     // (unitName="demoPU")
-            // lepiej dodac unit nazwe w razie gdybysmy mieli kilka baz danych
-            // nazwa widoczna w persistence.xml
-    EntityManager entityManager; // z javax, manager do zarzadzania baza
+    @PersistenceContext
+    EntityManager entityManager;
 
-    public Flower getFlower(Long id){
+    public Flower getFlower(Long id) {
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Flower> c = builder.createQuery(Flower.class);
-        Root<Flower> flower = c.from(Flower.class);
+        CriteriaQuery<Flower> query = builder.createQuery(Flower.class);
+        Root<Flower> flower = query.from(Flower.class);
         flower.fetch("persons", JoinType.LEFT);
         flower.fetch("type", JoinType.LEFT);
         flower.fetch("careDescription", JoinType.LEFT);
-        c.where(builder.equal(flower.get("id"), id));
-        c.distinct(true);
-        return entityManager.createQuery(c).getSingleResult();
+        query.where(builder.equal(flower.get("id"), id));
+        query.distinct(true);
+        List<Flower> result = entityManager.createQuery(query).getResultList();
+        if (!result.isEmpty())
+            return result.get(0);
+        return null;
     }
 
     public void addFlower (Flower flower){
@@ -40,13 +43,13 @@ public class FlowerService {
     @SuppressWarnings("unchecked")
     public List<Flower> getAllFlowers(){
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Flower> c = builder.createQuery(Flower.class);
-        Root<Flower> root = c.from(Flower.class);
-        root.fetch("persons", JoinType.LEFT);
-        root.fetch("type", JoinType.LEFT);
-        root.fetch("careDescription", JoinType.LEFT);
-        c.distinct(true);
-        return entityManager.createQuery(c).getResultList();
+        CriteriaQuery<Flower> query = builder.createQuery(Flower.class);
+        Root<Flower> flower = query.from(Flower.class);
+        flower.fetch("persons", JoinType.LEFT);
+        flower.fetch("type", JoinType.LEFT);
+        flower.fetch("careDescription", JoinType.LEFT);
+        query.distinct(true);
+        return entityManager.createQuery(query).getResultList();
     }
 
     public Flower updateFlower(Flower flower) {
@@ -58,73 +61,106 @@ public class FlowerService {
         entityManager.createNamedQuery("flower.deleteAll").executeUpdate();
     }
 
+
     public void deleteFlower(long id){
         Flower flower = getFlower(id);
         entityManager.remove(flower);
     }
 
+
     public List<Person> getFlowerPersons(long id){
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Person> c = builder.createQuery(Person.class);
-        Root<Person> root = c.from(Person.class);
-        root.fetch("persons", JoinType.LEFT);
-        c.where(builder.equal(root.get("id"), id));
-        c.distinct(true);
-        return entityManager.createQuery(c).getResultList();
+        CriteriaQuery<Person> query = builder.createQuery(Person.class);
+        Root<Person> flower = query.from(Person.class);
+        flower.fetch("persons", JoinType.LEFT);
+        query.where(builder.equal(flower.get("id"), id));
+        query.distinct(true);
+        return entityManager.createQuery(query).getResultList();
     }
 
-    public boolean addWaterman(long flowerId, long personId) {
-        Flower f = entityManager.find(Flower.class, flowerId);
-        Person p = entityManager.find(Person.class, personId);
-        if(f == null || p==null)
+    public boolean addWaterman(long flowerId, Person person) {
+        Flower flower = entityManager.find(Flower.class, flowerId);
+        entityManager.persist(person);
+        if(flower == null)
             return false;
-        f.getPersons().add(p);
-        entityManager.merge(f);
+        flower.getPersons().add(person);
+        entityManager.merge(flower);
         return true;
     }
 
 
     public boolean removeWaterman(long flowerId, long personId) {
-        Flower f = entityManager.find(Flower.class, flowerId);
-        Person p = entityManager.find(Person.class, personId);
-        if(f == null || p==null)
+        Flower flower = entityManager.find(Flower.class, flowerId);
+        Person person = entityManager.find(Person.class, personId);
+        if(flower == null || person==null)
             return false;
-        f.getPersons().remove(p);
-        entityManager.merge(f);
+        flower.getPersons().remove(person);
+        entityManager.merge(flower);
         return true;
     }
 
 
     public boolean setCard(long flowerId, Card card) {
-        Flower f = entityManager.find(Flower.class, flowerId);
+        Flower flower = entityManager.find(Flower.class, flowerId);
         entityManager.persist(card);
-        if(f == null || card==null)
+        if(flower == null || card==null)
             return false;
-        f.setCareDescription(card);
-        entityManager.merge(f);
+        flower.setCareDescription(card);
+        entityManager.merge(flower);
         return true;
     }
-
-//    public boolean addFertilization(long flowerId, Fertilization fertilization) {
-//        Flower f = entityManager.find(Flower.class, flowerId);
-//        entityManager.persist(fertilization);
-//        if(f == null || fertilization==null)
-//            return false;
-//        f.getFertilizations().add(fertilization);
-//        entityManager.merge(f);
-//        return true;
-//    }
 
     public boolean setType(long flowerId, long typeId) {
-        Flower f = entityManager.find(Flower.class, flowerId);
+        Flower flower = entityManager.find(Flower.class, flowerId);
         Type t = entityManager.find(Type.class, typeId);
-        if(f == null || t==null)
+        if(flower == null || t==null)
             return false;
-        f.setType(t);
-        entityManager.merge(f);
+        flower.setType(t);
+        entityManager.merge(flower);
         return true;
     }
 
+    public List<Flower> findFlowersByName(String name){
+        Query query
+                = entityManager.createNamedQuery("flower.byName");
+        query.setParameter("name", name);
+        return query.getResultList();
+    }
 
+    public List<Flower> findFlowersByType(String type){
+        Query query
+                = entityManager.createNamedQuery("flower.byType");
+        query.setParameter("type", type);
+        return query.getResultList();
+    }
+
+    public List<Flower> findFlowersByDateBetween (Date from, Date to){
+        Query query
+                = entityManager.createNamedQuery("flower.findByDate");
+        query.setParameter("dateFrom", from);
+        query.setParameter("dateTo", to);
+        return query.getResultList();
+
+    }
+
+    public List<Flower> findByCareDescription(String name){
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Flower> query = builder.createQuery(Flower.class);
+        Root<Flower> flower = query.from(Flower.class);
+
+        flower.fetch("persons", JoinType.LEFT);
+        flower.fetch("type", JoinType.LEFT);
+        flower.fetch("careDescription", JoinType.LEFT);
+        query.where(
+            builder.like(
+                builder.lower(
+                    flower.get("careDescription").
+                        get("description")),
+                "%"+name.toLowerCase()+"%")
+        );
+        query.distinct(true);
+
+        return entityManager.createQuery(query).getResultList();
+    }
 
 }

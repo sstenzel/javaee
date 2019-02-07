@@ -2,14 +2,10 @@ package pl.sstenzel.ug.javaee.florists.ejbjpa.serviceREST;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import pl.sstenzel.ug.javaee.florists.ejbjpa.domain.Card;
-import pl.sstenzel.ug.javaee.florists.ejbjpa.domain.Fertilization;
 import pl.sstenzel.ug.javaee.florists.ejbjpa.domain.Flower;
 import pl.sstenzel.ug.javaee.florists.ejbjpa.domain.Person;
-import pl.sstenzel.ug.javaee.florists.ejbjpa.service.CardService;
-import pl.sstenzel.ug.javaee.florists.ejbjpa.service.FertilizationService;
 import pl.sstenzel.ug.javaee.florists.ejbjpa.service.FlowerService;
-import pl.sstenzel.ug.javaee.florists.ejbjpa.service.PersonService;
-import pl.sstenzel.ug.javaee.florists.ejbjpa.view.View;
+import pl.sstenzel.ug.javaee.florists.ejbjpa.JSONView.View;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -17,6 +13,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collection;
+import java.sql.Date;
 
 /*
       localhost:8080/florists/api/flower/test
@@ -36,12 +33,7 @@ public class FlowerRESTService {
 
     @Inject
     FlowerService flowerService;
-    @Inject
-    PersonService ps;
-    @Inject
-    CardService cs;
-//    @Inject
-//    FertilizationService fs;
+
 
     @GET
     @Path("/test")
@@ -67,17 +59,13 @@ public class FlowerRESTService {
     @JsonView(View.FlowerRealtions.class)
     public Response getAllFlowers() {
         Collection<Flower> flowers = flowerService.getAllFlowers();
-        if (flowers.size() > 0 && flowers != null)
-            return Response.status(200).entity(flowers).build();
-        return Response.status(204).entity("Flowers not found").build();
+        return Response.status(200).entity(flowers).build();
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response addFlower(Flower flower) {
-        // tutaj mozna zmienic wartosci flowera
-        flowerService.addFlower(flower);     // <-- zob FlowerSerwice
-        // tutaj juz nie, bo kwiat zostal utrwalomy
+        flowerService.addFlower(flower);
         return Response.status(201).entity("add flower").build();
     }
 
@@ -86,9 +74,7 @@ public class FlowerRESTService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateFlower(Flower flower) {
         Flower flow = flowerService.updateFlower(flower);
-        if (flow != null)
-            return Response.status(201).entity(flow).build();
-        return Response.status(204).entity("Flowers not found").build();
+        return Response.status(201).entity(flow).build();
     }
 
 
@@ -106,14 +92,14 @@ public class FlowerRESTService {
     }
 
 
-
     @PUT
-    @Path("/{flowerId}/addwaterman/{personId}")
+    @Path("/{flowerId}/addwaterman")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addWaterman(@PathParam("flowerId") long flowerId, @PathParam("personId") long personId) {
-        if (!flowerService.addWaterman(flowerId,personId))
-            return Response.status(204).entity("Flower/person not found").build();
+    public Response addWaterman(
+            @PathParam("flowerId") long flowerId, Person person) {
+        if (!flowerService.addWaterman(flowerId, person))
+            return Response.status(204).entity("Flower not found").build();
         return Response.status(200).entity("added waterman to flower").build();
     }
 
@@ -122,7 +108,7 @@ public class FlowerRESTService {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response removeWaterman(@PathParam("flowerId") long flowerId, @PathParam("personId") long personId) {
-        if (!flowerService.removeWaterman(flowerId,personId))
+        if (!flowerService.removeWaterman(flowerId, personId))
             return Response.status(204).entity("Flower/person not found").build();
         return Response.status(200).entity("waterman removed from flower").build();
     }
@@ -132,9 +118,9 @@ public class FlowerRESTService {
     @Path("/{flowerId}/setcard")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response setCard(@PathParam("flowerId") long flowerId, Card card){
+    public Response setCard(@PathParam("flowerId") long flowerId, Card card) {
         if (!flowerService.setCard(flowerId, card))
-            return Response.status(204).entity("Flower not found").build();
+            return Response.status(204).entity("Flower/card not found").build();
         return Response.status(200).entity("added care description to flower").build();
     }
 
@@ -142,22 +128,60 @@ public class FlowerRESTService {
     @Path("/{flowerId}/settype/{typeId}")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response setType(@PathParam("flowerId") long flowerId, @PathParam("typeId") long typeId){
+    public Response setType(@PathParam("flowerId") long flowerId, @PathParam("typeId") long typeId) {
         if (!flowerService.setType(flowerId, typeId))
-            return Response.status(204).entity("Flower not found").build();
+            return Response.status(204).entity("Flower/type not found").build();
         return Response.status(200).entity("set type to flower").build();
     }
 
 
-//    @PUT
-//    @Path("/{flowerId}/addfert")
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public Response addFertilization(@PathParam("flowerId") long flowerId, Fertilization fertilization){
-//        if (! flowerService.addFertilization(flowerId, fertilization) )
-//            return Response.status(204).entity("Flower not found").build();
-//
-//        return Response.status(200).entity("added fertilization to flower").build();
-//    }
+    @GET
+    @Path("/byDate/{from}/{to}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @JsonView(View.Flower.class)
+    public Response findByDateBetween(
+            @PathParam("from") Date from, @PathParam("to") Date to)
+    {
+        Collection<Flower> flowers =
+                flowerService.findFlowersByDateBetween(from,to);
+            return Response.status(200).entity(flowers).build();
+    }
+
+    @GET
+    @Path("/byName/{name}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @JsonView(View.Flower.class)
+    public Response findFlowersByName(
+            @PathParam("name") String name)
+    {
+        Collection<Flower> flowers =
+                flowerService.findFlowersByName(name);
+            return Response.status(200).entity(flowers).build();
+    }
+
+    @GET
+    @Path("/byType/{type}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @JsonView(View.Flower.class)
+    public Response findFlowersByType(
+            @PathParam("type") String type)
+    {
+        Collection<Flower> flowers =
+                flowerService.findFlowersByType(type);
+            return Response.status(200).entity(flowers).build();
+    }
+
+    @GET
+    @Path("/byCareDescription/{name}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @JsonView(View.FlowerRealtions.class)
+    public Response findByCareDescription(
+            @PathParam("name") String name)
+    {
+        Collection<Flower> flowers =
+                flowerService.findByCareDescription(name);
+        return Response.status(200).entity(flowers).build();
+    }
+
 
 }

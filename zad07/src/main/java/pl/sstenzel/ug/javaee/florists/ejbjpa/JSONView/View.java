@@ -1,4 +1,4 @@
-package pl.sstenzel.ug.javaee.florists.ejbjpa.view;
+package pl.sstenzel.ug.javaee.florists.ejbjpa.JSONView;
 
 
 public class View {

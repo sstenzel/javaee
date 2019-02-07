@@ -23,11 +23,9 @@ public class CardRESTService {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllPeople(){
+    public Response getAllCards(){
         Collection<Card> cards = cs.getAllCards();
-        if (cards.size() > 0 && cards !=null)
-            return Response.status(200).entity(cards).build();
-        return Response.status(204).entity("Types not found").build();
+        return Response.status(200).entity(cards).build();
     }
 }
 

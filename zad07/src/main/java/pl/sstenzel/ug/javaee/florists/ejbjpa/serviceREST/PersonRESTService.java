@@ -3,7 +3,7 @@ package pl.sstenzel.ug.javaee.florists.ejbjpa.serviceREST;
 import com.fasterxml.jackson.annotation.JsonView;
 import pl.sstenzel.ug.javaee.florists.ejbjpa.domain.Person;
 import pl.sstenzel.ug.javaee.florists.ejbjpa.service.PersonService;
-import pl.sstenzel.ug.javaee.florists.ejbjpa.view.View;
+import pl.sstenzel.ug.javaee.florists.ejbjpa.JSONView.View;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -22,35 +22,52 @@ public class PersonRESTService {
 
 
     @Inject
-    PersonService ps;
+    PersonService personService;
+
 
     @GET
     @Path("/{personId}")
     @Produces(MediaType.APPLICATION_JSON)
     @JsonView(View.PersonRelations.class)
     public Response getPerson(@PathParam("personId") long id) {
-        Person person = ps.getPerson(id);
+        Person person = personService.getPerson(id);
         if (person != null)
             return Response.status(200).entity(person).build();
-        return Response.status(204).entity("Person not found").build();
+        return Response.status(204).entity("person not found").build();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @JsonView(View.PersonRelations.class)
     public Response getAllPeople(){
-        Collection<Person> people = ps.getAllPeople();
-        if (people.size() > 0 && people !=null)
-            return Response.status(200).entity(people).build();
-        return Response.status(204).entity("People not found").build();
+        Collection<Person> people = personService.getAllPeople();
+        return Response.status(200).entity(people).build();
     }
 
 
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response addPerson(Person person) {
-        ps.addPerson(person);
-        return Response.status(201).entity("add person").build();
+    @GET
+    @Path("/byFlowersAmount/{amount}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @JsonView(View.Person.class)
+    public Response findByFlowersAmount(
+            @PathParam("amount") long amount)
+    {
+        Collection<Person> people =
+                personService.findByFlowersAmount(amount);
+        return Response.status(200).entity(people).build();
+    }
+
+    @GET
+    @Path("/byToxicFlowers/{dogToxic}/{amount}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @JsonView(View.Person.class)
+    public Response findByToxicFlowers(
+            @PathParam("dogToxic") boolean dogToxic,
+            @PathParam("amount") long amount)
+    {
+        Collection<Person> people =
+                personService.findByToxicFlowers(dogToxic, amount);
+        return Response.status(200).entity(people).build();
     }
 
 }

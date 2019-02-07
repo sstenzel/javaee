@@ -1,8 +1,5 @@
 package pl.sstenzel.ug.javaee.florists.ejbjpa.domain;
 
-import com.fasterxml.jackson.annotation.JsonView;
-import pl.sstenzel.ug.javaee.florists.ejbjpa.view.View;
-
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -10,7 +7,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class Type {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
 
     public Type(){
@@ -19,14 +19,12 @@ public class Type {
         this.name = name;
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long getId() {
-        return id;
-    }
+
+    public Long getId() { return id; }
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getName() {
         return name;
     }

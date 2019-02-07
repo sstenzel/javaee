@@ -1,9 +1,7 @@
 package pl.sstenzel.ug.javaee.florists.ejbjpa.serviceREST;
 
-import com.fasterxml.jackson.annotation.JsonView;
 import pl.sstenzel.ug.javaee.florists.ejbjpa.domain.Type;
 import pl.sstenzel.ug.javaee.florists.ejbjpa.service.TypeService;
-import pl.sstenzel.ug.javaee.florists.ejbjpa.view.View;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -25,18 +23,14 @@ public class TypeRESTService {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getType(@PathParam("typeId") long id) {
         Type type = ts.getType(id);
-        if (type != null)
-            return Response.status(200).entity(type).build();
-        return Response.status(204).entity("Type not found").build();
+        return Response.status(200).entity(type).build();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllPeople(){
+    public Response getAllTypes(){
         Collection<Type> types = ts.getAllTypes();
-        if (types.size() > 0 && types !=null)
-            return Response.status(200).entity(types).build();
-        return Response.status(204).entity("Types not found").build();
+        return Response.status(200).entity(types).build();
     }
 
 
